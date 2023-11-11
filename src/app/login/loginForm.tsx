@@ -1,22 +1,20 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 'use client'
 
+import React, { useState } from 'react'
 import CustomButton from '@/src/components/CustomButton'
 import Heading from '@/src/components/Heading'
 import Input from '@/src/components/Inputs/input'
 import { type SignInResponse, signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import toast from 'react-hot-toast'
 import Navigation from '@/src/components/Navigation/navigation'
-import { SafeUser } from '@/src/types'
 
-interface LoginFormProps {
-  currentUser: SafeUser
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
+const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const {
     register, // validasi register dari library react-form-hook
@@ -26,16 +24,8 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
     defaultValues: {
       email: '',
       password: ''
-    }
+    }// Lihat di Materi cara penggunaan dari defaultValues react-hook-form
   })
-
-  useEffect(() => {
-    if (currentUser) {
-      router.push('/')
-      router.refresh()
-    }
-  }, [])
-
 
   const router = useRouter()
 
@@ -65,10 +55,6 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
     } finally {
       setIsLoading(false)
     }
-  }
-
-  if (currentUser) {
-    return <p className='text-center'>Logged in. Redirecting...</p>
   }
 
   return (
@@ -103,7 +89,7 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
         disabled={isLoading}
       />
 
-      <CustomButton outline label="Google" icon={FcGoogle} onClick={() => {signIn('google')}} disabled={isLoading}/>
+      <CustomButton outline label="Google" icon={FcGoogle} onClick={() => { void signIn('google') }} disabled={isLoading}/>
       <Navigation isLoading={isLoading} path={'/register'} text={"don't have an account yet"} >
         <span className="bg-gradient-to-b from-blue-800 to-rose-500 text-transparent bg-clip-text ml-2">
             register

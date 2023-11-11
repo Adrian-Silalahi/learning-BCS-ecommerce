@@ -1,4 +1,6 @@
 'use client'
+
+import React from 'react'
 import Image from 'next/image'
 import TruncateText from '@/src/utils/TruncateText'
 import { Rating } from '@mui/material'

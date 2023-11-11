@@ -1,25 +1,48 @@
 'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { MdArrowBack } from 'react-icons/md'
 import { useCart } from '../hooks/useCart'
 import Heading from '../components/Heading'
 import CustomButton from '../components/CustomButton'
 import CartItem from '../app/cart/CartItem'
-import { SafeUser } from '../types'
+import { type SafeUser } from '../types'
 import { useRouter } from 'next/navigation'
 
 interface CartViewProps {
   currentUser?: SafeUser | null
 }
 
-const CartView: React.FC<CartViewProps> = ({currentUser}) => {
+const CartView: React.FC<CartViewProps> = ({ currentUser }) => {
   const { cartProducts, handleClearCart, cartTotalPrice } = useCart()
-
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-
   const emprtyCartProducts = cartProducts === null || cartProducts.length === 0
   const isCartProducts = cartProducts !== null && cartProducts.length !== 0
+
+  const handleCheckout = (): void => {
+    setIsLoading(true)
+    router.push('/checkout')
+  }
+
+  if (currentUser === null || currentUser === undefined) {
+    return (
+      <div className="flex flex-col items-center">
+        <div className="text-2xl">Please login first</div>
+        <div>
+          <Link
+            href={'/login'}
+            className="
+                  text-slate-500 flex items-center gap-1 mt-2"
+          >
+            <MdArrowBack />
+            <span>Login</span>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
   if (emprtyCartProducts) {
     return (
       <div className="flex flex-col items-center">
@@ -37,6 +60,7 @@ const CartView: React.FC<CartViewProps> = ({currentUser}) => {
       </div>
     )
   }
+
   return (
     <div>
       <Heading title="Shopping Cart" center />
@@ -72,11 +96,11 @@ const CartView: React.FC<CartViewProps> = ({currentUser}) => {
             <p className="text-slate-500">
               Taxes and shipping calculate at checkout
             </p>
-            <CustomButton label={currentUser? 'Checkout' : 'Login to checkout'} 
-            outline={currentUser? false : true}
+            <CustomButton label={isLoading ? 'Loading...' : 'Checkout'}
             onClick={() => {
-              currentUser? router.push('/checkout') : router.push('/login')
-            }} 
+              handleCheckout()
+            }}
+            disabled={isLoading}
             />
             <Link
               href={'/'}

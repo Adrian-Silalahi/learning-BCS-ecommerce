@@ -9,6 +9,24 @@ generator client {
   provider        = "prisma-client-js"
 }
 
+//User nantinya adalah nama collection di database kita, dan Model user adalah cetak birunya atau seperti apa struktur data / bentukan data dari collection tersebut nantinya
+//Model User atau cetak biru ini nantinya akan kita gunakan sebagai cetak biru user dalam melakukan register
+model User {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  hashedPassword  String?
+  paymentIntentId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role Role @default(USER)
+  accounts      Account[]
+  orders        Order[]
+  reviews       Review[]
+}
+
 //Account nantinya adalah nama collection di database kita, dan Model Account adalah cetak birunya atau seperti apa struktur data / bentukan data dari collection tersebut nantinya
 //Model Account atau cetak biru ini nantinya akan kita gunakan sebagai cetak biru Account( Google , Github, Facebook dan sebagainya) dalam melakukan autentikasi
 model Account {
@@ -17,12 +35,13 @@ model Account {
   //@id : artinya primary key atau setiap entri yang menggunakan model ini akan memiliki id yang unik / berbeda-beda
   //@default(auto()) : artinya id akan secara otomatis di-generate oleh database saat entri baru ditambahkan. Dengan kata lain, Anda tidak perlu secara eksplisit menyediakan nilai untuk kolom ini saat membuat entri baru; database akan mengisi nilainya secara otomatis.
   //@map("_id") : artinya Ini berarti ketika Prisma mengakses field id, ia akan mengakses kolom _id dalam database MongoDB
+  // @db.ObjectId : Menandakan disimpan sebagai tipe data object di dalam MongoDB.
   userId             String  @db.ObjectId //Menandakan disimpan sebagai tipe data object di dalam MongoDB.
   type               String
   provider           String
   providerAccountId  String
   refresh_token      String?  @db.String //Menandakan disimpan sebagai tipe data string di dalam MongoDB.
-  access_token       String?  @db.String
+  access_token       String?  @db.String //Menandakan disimpan sebagai tipe data string di dalam MongoDB.
   expires_at         Int?
   token_type         String?
   scope              String?
@@ -34,32 +53,29 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-// model Product{
-//   id String @id @default(auto()) @map("_id") @db.ObjectId
-//   name String
-//   description String
-//   price Float
-//   brand String
-//   category String
-//   inStock Boolean
-//   image Image[]
-//   reviews Review[]
-// }
+model Product{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String
+  price Float
+  brand String
+  category String
+  inStock Boolean
+  imageInfo Image[]
+  reviews Review[]
+}
 
-//User nantinya adalah nama collection di database kita, dan Model user adalah cetak birunya atau seperti apa struktur data / bentukan data dari collection tersebut nantinya
-//Model User atau cetak biru ini nantinya akan kita gunakan sebagai cetak biru user dalam melakukan register
-model User {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  hashedPassword  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role Role @default(USER)
-  accounts      Account[]
-  orders        Order[]
+model Review{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  productId String @db.ObjectId 
+  rating Int
+  comment String
+  createdDate DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  //Penjelasan syntax baris diatas ada di materi.
 }
 
 model Order{

@@ -8,8 +8,7 @@ export const getSession = async (): Promise<any> => {
 export const getCurrentUser = async (): Promise<any> => {
   try {
     const session = await getSession()
-
-    const invalidEmail = !session?.user?.email
+    const invalidEmail = session?.user?.email === null
     if (invalidEmail) {
       return null
     }
@@ -20,7 +19,7 @@ export const getCurrentUser = async (): Promise<any> => {
       }
     })
 
-    if (!currentUser) {
+    if (currentUser === null || currentUser === undefined) {
       return null
     }
 

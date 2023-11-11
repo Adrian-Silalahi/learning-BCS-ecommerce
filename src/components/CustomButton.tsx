@@ -25,7 +25,6 @@ const CustomButton: React.FC<ButtonProps> = ({
   const isOutline = (outline !== null && outline !== undefined) && outline
   const isSmall = (small !== null && small !== undefined) && small
   const isCustom = (custom !== null && custom !== undefined) && custom
-  const isIcon = (Icon !== null && Icon !== undefined) && Icon
   return (
     <button
       onClick={onClick}
@@ -35,9 +34,9 @@ const CustomButton: React.FC<ButtonProps> = ({
       ${isOutline ? 'text-slate-700' : 'text-white'}  
       ${isSmall ? 'text-sm font-light' : 'text-md font-semibold'} 
       ${isSmall ? 'py-1 px-2 border-[1px]' : 'py-3 px-4 border-2'} 
-      ${isCustom || ''}`}
+      ${isCustom ?? ''}`}
     >
-      {isIcon && <Icon size={24} />}
+      {(Icon !== null && Icon !== undefined) && <Icon size={24} />}
       {label}
     </button>
   )

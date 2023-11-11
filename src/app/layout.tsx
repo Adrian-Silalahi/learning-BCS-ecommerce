@@ -1,3 +1,4 @@
+import React from 'react'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
@@ -5,7 +6,7 @@ import Navbar from '../components/Navbar/navbar'
 import Footer from '../components/Footer/footer'
 import { CartContextProvider } from '../hooks/useCart'
 import { Toaster } from 'react-hot-toast'
-import { headers } from 'next/headers';
+import { headers } from 'next/headers'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] })
 
@@ -24,11 +25,11 @@ export default function RootLayout ({
 }: {
   children: React.ReactNode
 }): JSX.Element | undefined {
-  const headersList = headers();
-  const pathname = headersList.get("x-invoke-path") || "";
+  const headersList = headers()
+  const pathname = headersList.get('x-invoke-path') ?? ''
   const disabledNavFooter = ['/login', '/register']
   const isNotAuthPage = Boolean(!disabledNavFooter.includes(pathname))
-  
+
   if (pathname !== null) {
     return (
     <html lang="en">
@@ -47,7 +48,7 @@ export default function RootLayout ({
         <CartContextProvider>
           <div className="flex flex-col min-h-screen ">
             {/* Artinya jika pathnya login atau register, maka navbar dan footer tidak akan muncul */}
-            {isNotAuthPage  && <Navbar />}
+            {isNotAuthPage && <Navbar />}
             <main className="flex-grow bg-white font">{children}</main>
             {isNotAuthPage && <Footer />}
           </div>
