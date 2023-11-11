@@ -1,13 +1,20 @@
 'use client'
 
 import { useCart } from '@/src/hooks/useCart'
+import { type SafeUser } from '@/src/types'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { CiShoppingCart } from 'react-icons/ci'
 
-const CartCount = (): React.ReactElement => {
+interface ShoppingCartProps {
+  currentUser: SafeUser | null
+}
+
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ currentUser }) => {
   const router = useRouter()
   const { cartTotalQuantity } = useCart()
+  const isCurrentUser = currentUser !== null && currentUser !== undefined
+
   return (
     <div
       className="relative cursor-pointer"
@@ -17,10 +24,10 @@ const CartCount = (): React.ReactElement => {
         <CiShoppingCart />
       </div>
       <span className="absolute top-[-10px] right-[-10px] bg-slate-700 text-white h-6 w-6 rounded-full flex items-center justify-center text-sm">
-        {cartTotalQuantity}
+        {isCurrentUser ? cartTotalQuantity : 0}
       </span>
     </div>
   )
 }
 
-export default CartCount
+export default ShoppingCart

@@ -4,16 +4,18 @@ import Image from 'next/image'
 import login_img from '@/src/assets/login.jpg'
 import LoginForm from './loginForm'
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import RejectAuthPage from '@/src/components/RejectAuthPage'
 
-const Register = async (): Promise<React.JSX.Element> => {
+const Login = async (): Promise<any> => {
   const currentUser = await getCurrentUser()
-  const emptyUser = !currentUser
 
+  if (currentUser !== null && currentUser !== undefined) {
+    return <RejectAuthPage/>
+  }
 
   return (
     <div>
       <div className="flex h-screen">
-        {emptyUser && (
         <div className="flex-1 w-full h-full rounded-xl relative overflow-hidden ">
           <Image
             alt="login-img"
@@ -21,11 +23,11 @@ const Register = async (): Promise<React.JSX.Element> => {
             fill
             className="object-cover"
           />
-        </div>)}
-        <div className={`${currentUser? "w-full" : "w-[42%]"}`}>
+        </div>
+        <div className= 'w-[42%]'>
           <div className="flex-1 w-full h-full ">
             <FormWrap>
-              <LoginForm currentUser={currentUser}/>
+              <LoginForm />
             </FormWrap>
           </div>
         </div>
@@ -34,4 +36,4 @@ const Register = async (): Promise<React.JSX.Element> => {
   )
 }
 
-export default Register
+export default Login

@@ -1,8 +1,7 @@
 'use client'
 
-import { createContext, useCallback, useContext, useState, useEffect } from 'react'
+import React, { createContext, useCallback, useContext, useState, useEffect } from 'react'
 import { type ProductType } from '../app/productDetail/ProductDetailType'
-
 import { toast } from 'react-hot-toast'
 
 // Mendefinisikan type dari value²/data yang disediakan cart context
@@ -15,8 +14,6 @@ interface CartContextType {
   handleIncreaseProductCartQty: (itemSelected: ProductType) => void
   handleDecreaseProductCartQty: (itemSelected: ProductType) => void
   handleClearCart: () => void
-  paymentIntent: string | null
-  handleSetPaymentIntent: (paymentIntentData: string | null) => void
 }
 
 // Syntax untuk membuat sebuah context
@@ -24,28 +21,24 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | null>(null)
 
 interface ProviderProps {
-  [propName: string]: any
+  // [propName: string]: any // Memungkinkan kita menerima props apa saja yang dikirimkan melalui <CartContext.Provider {"props apa saja"} > yang kita letakkan di layout.tsx (lihat di eps23 - 4)
   children: React.ReactNode
 }
 
 // Membuat sebuah provider / penyedia pada sebuah context
 export const CartContextProvider: React.FC<ProviderProps> = ({
-  props,
+  // props,
   children
 }) => {
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0)
   const [cartTotalPrice, setCartTotalPrice] = useState(0)
   const [cartProducts, setCartProducts] = useState<ProductType[] | null>(null)
-  const [paymentIntent, setPaymentIntent] = useState<string | null>(null)
 
   useEffect(() => {
     const cartItems: any = localStorage.getItem('cartItemsStorage')
     const localStorageProducts: ProductType[] | null = JSON.parse(cartItems)
-    const localStoragePaymentIntent:any = localStorage.getItem('paymentIntentStorage')
-    const temporaryPaymentIntent: string | null = JSON.parse(localStoragePaymentIntent)
 
     setCartProducts(localStorageProducts)
-    setPaymentIntent(temporaryPaymentIntent)
   }, [])
 
   useEffect(() => {
@@ -75,7 +68,7 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
   }, [cartProducts])
 
   const handleAddProductToCart = useCallback((product: ProductType) => {
-    setCartProducts((prev) => {
+    setCartProducts(prev => {
       let updatedCart
       if (prev !== null) {
         updatedCart = [...prev, product]
@@ -86,6 +79,7 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
       localStorage.setItem('cartItemsStorage', JSON.stringify(updatedCart))
       return updatedCart
     })
+    console.log('Product ditambahkan ke keranjang')
   }, [])
 
   const handleRemoveProductFromCart = useCallback(
@@ -170,12 +164,6 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
     setcartTotalQuantity(0)
   }, [])
 
-
-  const handleSetPaymentIntent = useCallback((paymentIntentData: string | null) => {
-    setPaymentIntent(paymentIntentData)
-    localStorage.setItem('paymentIntentStorage', JSON.stringify(paymentIntentData))
-  }, [paymentIntent])
-
   const value = {
     cartTotalPrice,
     cartTotalQuantity,
@@ -184,16 +172,15 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
     handleRemoveProductFromCart,
     handleIncreaseProductCartQty,
     handleDecreaseProductCartQty,
-    handleClearCart,
-    paymentIntent,
-    handleSetPaymentIntent
+    handleClearCart
   }
 
   return (
     // Kita masukkan value/data yang sudah kita sediakan, kedalam provider.
     // Value ini nanti dapat kita gunakan pada komponen² yang berada di dalam lingkup cart context provider atau children dari cart context provider
     // Dimana Value ini adalah sebagai data/fungsi yang ingin kita gunakan
-    <CartContext.Provider value={value} {...props}>
+    <CartContext.Provider value={value}>
+      {/* <CartContext.Provider value={value} {...props}> */}
       {children}
     </CartContext.Provider>
     // Namun, kita juga bisa memisahkan provider kedalam file lain agar codingan terlihat rapi

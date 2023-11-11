@@ -1,22 +1,19 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client'
 
+import React, { useState } from 'react'
 import CustomButton from '@/src/components/CustomButton'
 import Heading from '@/src/components/Heading'
 import Input from '@/src/components/Inputs/input'
 import Navigation from '@/src/components/Navigation/navigation'
-import { SafeUser } from '@/src/types'
 import axios, { AxiosError } from 'axios'
 import { type SignInResponse, signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { FcGoogle } from 'react-icons/fc'
 
-interface RegisterFormProps {
-  currentUser: SafeUser | null
-}
-const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
+const RegisterForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const {
     register,
@@ -24,16 +21,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
     formState: { errors }
   } = useForm<FieldValues>({
     defaultValues: { name: '', email: '', password: '' }
-  })
+  })// Lihat di Materi cara penggunaan dari defaultValues react-hook-form
 
   const router = useRouter()
-
-  useEffect(() => {
-    if (currentUser) {
-      router.push('/')
-      router.refresh()
-    }
-  }, [])
 
   const onSubmit: SubmitHandler<FieldValues> = async (userCredentials) => {
     // userCredentials berasal dari inputan yg di isi oleh user dan ditangani oleh react-hook-form dan data credentialsnya dikirimkan ke props fungsi onSubmit. Kita juga bisa mengatur nilai default dari credentials di bagian defaultValues dari useForm (lihat letaknya ada dibawah initialisasi state)
@@ -76,10 +66,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
     }
   }
 
-  if (currentUser) {
-    return <p className='text-center'>Logged in. Redirecting...</p>
-  }
-
   return (
     <>
       <Heading title="Create Your Account" serif className={'pb-2 text-3xl'} />
@@ -116,7 +102,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
         disabled={isLoading}
       />
 
-      <CustomButton outline label="Google" icon={FcGoogle} onClick={() => {signIn('google')}} disabled={isLoading}/>
+      <CustomButton outline label="Google" icon={FcGoogle} onClick={() => { void signIn('google') }} disabled={isLoading}/>
       <Navigation isLoading={isLoading} path={'/login'} text={'Already have an account?'} >
         <span className="bg-gradient-to-b from-blue-800 to-rose-500 text-transparent bg-clip-text ml-2">
             Login

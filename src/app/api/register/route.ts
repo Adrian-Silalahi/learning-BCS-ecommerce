@@ -14,7 +14,7 @@ export async function POST (request: Request): Promise<NextResponse> {
     }
   })
 
-  if (checkEmail !== null) {
+  if (checkEmail !== null && checkEmail !== undefined) {
     return NextResponse.json(
       // Jika email sudah pernah terdaftar, kembalikan pesan kesalahan
       { message: 'Email ini sudah terdaftar' },

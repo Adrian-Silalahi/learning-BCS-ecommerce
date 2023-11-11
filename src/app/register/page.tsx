@@ -4,15 +4,17 @@ import RegisterForm from '@/src/app/register/registerForm'
 import Image from 'next/image'
 import register_img from '@/src/assets/register.jpg'
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import RejectAuthPage from '@/src/components/RejectAuthPage'
 
 const Register = async (): Promise<React.ReactElement> => {
   const currentUser = await getCurrentUser()
-  const emptyUser = !currentUser
+  if (currentUser !== null && currentUser !== undefined) {
+    return <RejectAuthPage/>
+  }
 
   return (
     <div>
       <div className="flex h-screen">
-        {emptyUser && (
           <div className="flex-1 w-full h-full rounded-xl relative overflow-hidden ">
           <Image
             alt="register-img"
@@ -21,11 +23,10 @@ const Register = async (): Promise<React.ReactElement> => {
             className="object-cover"
           />
         </div>
-        )}
         {/* Pemberian m-auto pada elemen flex items / elemen yg parentnya memiliki d-flex akan membuat flex-items tsb berada di tengah */}
-        <div className={`${currentUser? "w-full" : "w-[42%]" }`}>
+        <div className="w-[42%]">
           <FormWrap>
-            <RegisterForm currentUser={currentUser} />
+            <RegisterForm />
           </FormWrap>
         </div>
       </div>

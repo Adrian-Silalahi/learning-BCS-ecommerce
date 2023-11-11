@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Admin = () => {
+const Admin = (): React.ReactElement => {
   return (
     <div className='pt-8'>Admin Page</div>
   )

@@ -1,8 +1,8 @@
 // Prisma client ibaratnya berfungsi sebagai jasa penyedia query yang mudah dibaca dan dikelola yang disediakan oleh prisma, query seperti :
-// prisma.user.findUnique, 
-// prisma.user.findMany 
-// prisma.user.create, 
-// prisma.user.update, 
+// prisma.user.findUnique,
+// prisma.user.findMany
+// prisma.user.create,
+// prisma.user.update,
 // prisma.user.delete dan lain-lain
 import { PrismaClient } from '@prisma/client'
 

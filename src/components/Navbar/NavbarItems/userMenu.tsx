@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable multiline-ternary */
 'use client'
 import React, { useState, useCallback } from 'react'
 import Avatar from '../../Avatar'
@@ -6,14 +8,15 @@ import Link from 'next/link'
 import MenuItem from '../Navigation/menuItem'
 import { signOut } from 'next-auth/react'
 import BackDrop from './backDrop'
-import { SafeUser } from '@/src/types'
+import { type SafeUser } from '@/src/types'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
-
-interface UserMenuProps{
+interface UserMenuProps {
   currentUser: SafeUser
 }
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const isCurrentUser = currentUser !== null && currentUser !== undefined
   const [isDropDown, setIsDropDown] = useState(false)
 
   const changeToggle = useCallback(() => {
@@ -34,7 +37,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         </div>
         {isDropDown && (
           <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
-            {currentUser? (<div>
+            {isCurrentUser ? (<div>
               <Link href="/orders">
                 <MenuItem changeToggle={changeToggle}>Your Orders</MenuItem>
               </Link>
@@ -44,22 +47,21 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               <MenuItem
                 changeToggle={ async () => {
                   changeToggle()
-                  await signOut()
+                  await signOut().then(() => { toast.success('Berhasil Logout') })
                 }}
               >
                 Logout
               </MenuItem>
             </div>)
-            :
-            (<div>
-                <MenuItem changeToggle={()=>{
+              : (<div>
+                <MenuItem changeToggle={() => {
                   changeToggle()
-                  router.push("/login")
+                  router.push('/login')
                   router.refresh() // Kalo ga di refresh, ketika nanti di login page, meskipun path url di browser sudah berganti, pada variabel untuk menangkap path url di layout page, path urlnya ga berganti ke "/login", mengakibatkan navbar&footer tetap tampil di halaman login
                 }}>Login</MenuItem>
-                <MenuItem changeToggle={()=>{
+                <MenuItem changeToggle={() => {
                   changeToggle()
-                  router.push("/register")
+                  router.push('/register')
                   router.refresh() // Sama penjelesannya seperi pada login page
                 }}>Register</MenuItem>
             </div>)}

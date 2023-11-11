@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
   register,
   errors
 }) => {
-  const isError = (errors[id] !== null && errors[id] !== undefined) && errors
+  const isError = (errors[id] !== null && errors[id] !== undefined)
   return (
     <div className="w-full relative">
       <input

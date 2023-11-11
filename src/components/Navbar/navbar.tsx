@@ -1,17 +1,16 @@
+import React from 'react'
 import Link from 'next/link'
 import Container from '../Container'
-import { Pacifico } from 'next/font/google'
-import CartCount from './Navigation/shoppingCart'
+import { Montserrat } from 'next/font/google'
+import ShoppingCart from './Navigation/shoppingCart'
 import UserMenu from './NavbarItems/userMenu'
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
 
-
-const pacifico = Pacifico({ subsets: ['latin'], weight: ['400'] })
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 const Navbar = async (): Promise<React.ReactElement> => {
   const STORE_NAME = 'Bodat Chic'
   const currentUser = await getCurrentUser()
-  
   return (
     <div
       className="
@@ -37,14 +36,14 @@ const Navbar = async (): Promise<React.ReactElement> => {
           >
             <Link href={'/'} className="flex items-center">
               <div
-                className={`text-black text-2xl ${pacifico.className} pt-1 ms-2`}
+                className={`text-slate-800 text-3xl ${montserrat.className} pt-1 ms-2`}
               >
                 {STORE_NAME}
               </div>
             </Link>
-            <div className="hidden md:block">Search</div>
+            <div className="hidden md:block ">Search</div>
             <div className="flex items-center gap-8 md:gap-12">
-              <CartCount />
+              <ShoppingCart currentUser={currentUser}/>
               <UserMenu currentUser={currentUser}/>
             </div>
           </div>
@@ -55,4 +54,3 @@ const Navbar = async (): Promise<React.ReactElement> => {
 }
 
 export default Navbar
-
