@@ -9,7 +9,7 @@ import RejectAuthPage from '@/src/components/RejectAuthPage'
 const Login = async (): Promise<any> => {
   const currentUser = await getCurrentUser()
 
-  if (currentUser !== null && currentUser !== undefined) {
+  if (currentUser) {
     return <RejectAuthPage/>
   }
 

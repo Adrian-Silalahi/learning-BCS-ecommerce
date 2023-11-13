@@ -6,7 +6,7 @@ import { type Product } from '@prisma/client'
 import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 import { formatRupiah } from '../utils/FormatRupiah'
 import Heading from '../components/Heading'
-import StockStatus from '../components/StockStatus'
+import Status from '../components/Status'
 import { MdCached, MdClose, MdDelete, MdDone, MdRemoveRedEye } from 'react-icons/md'
 import ActionButton from '../components/Products/ActionButton'
 import { useRouter } from 'next/navigation'
@@ -24,7 +24,7 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
   const storage = getStorage(firebaseApp)
   let rows: any = []
 
-  if (products !== null && products !== undefined) {
+  if (products) {
     rows = products.map((product) => {
       return {
         id: product.id,
@@ -64,14 +64,14 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
         return (
         <div>{isStock === true
           ? (
-            <StockStatus
+            <Status
               text='in Stock'
               icon={MdDone}
               bg='bg-teal-200'
               color='text-teal-700'/>
             )
           : (
-            <StockStatus
+            <Status
               text='out of Stock'
               icon={MdClose}
               bg='bg-rose-200'

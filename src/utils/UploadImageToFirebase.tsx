@@ -14,7 +14,7 @@ export const uploadImageToFirebase = async ({ productData, uploadedImages, setIs
   try {
     for (const info of productData.imageInfo) {
       const image = info.image
-      if (image !== null && image !== undefined) {
+      if (image) {
         const fileName = (`${new Date().getTime()} - ${image.name}`)
         const storage = getStorage(firebaseApp)
         const storageRef = ref(storage, `products/${fileName}`)

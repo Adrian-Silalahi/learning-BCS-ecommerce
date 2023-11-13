@@ -20,19 +20,16 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
   const formattedPrice = formatRupiah(cartTotalPrice)
   const stripe = useStripe()
   const elements = useElements()
-  const isInvalidClientSecret = clientSecret === null || clientSecret === undefined
-  const isInvalidStripeElements = elements === null || elements === undefined
-  const isInvalidStripe = stripe === null || stripe === undefined
 
   const deleteUserIntentFromDB = (): void => {
     axios.delete('/api/delete-payment-intent')
   }
 
   useEffect(() => {
-    if (isInvalidStripe) {
+    if (!stripe) {
       return
     }
-    if (isInvalidClientSecret) {
+    if (!clientSecret) {
       return
     }
     handleSetPaymentSuccess(false)
@@ -41,7 +38,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
 
-    if (isInvalidStripe || isInvalidStripeElements) {
+    if (!stripe || !elements) {
       return
     }
     setIsLoading(true)

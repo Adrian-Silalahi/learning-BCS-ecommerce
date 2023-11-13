@@ -21,11 +21,10 @@ export default async function handler (
   const sig = req.headers['stripe-signature']
 
   if (!sig) {
-    return res.status(400).send({ error: 'Missing the stripe signature' })
+    return res.status(400).send( 'Missing the stripe signature' )
   }
 
   let event: Stripe.Event
-
   try {
     event = stripe.webhooks.constructEvent(
       buf,
@@ -36,6 +35,7 @@ export default async function handler (
   }
 
   switch (event.type) {
+    
     case 'charge.succeeded':
       const charge: any = event.data.object as Stripe.Charge
       if (typeof charge.payment_intent === 'string') {
@@ -52,6 +52,5 @@ export default async function handler (
     default:
       console.log(`Unhandled event type ${event.type}`)
   }
-
   res.json({ received: true })
 }

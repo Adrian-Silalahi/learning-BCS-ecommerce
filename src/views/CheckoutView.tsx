@@ -25,7 +25,7 @@ const CheckoutView = (): React.ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
-    if (cartProducts !== null && cartProducts !== undefined) {
+    if (cartProducts) {
       setLoading(true)
       setError(false)
 

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 export async function DELETE (request: Request): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
-  if (currentUser !== null && currentUser !== undefined) {
+  if (currentUser) {
     const userId = currentUser.id
     await prisma?.user.update({
       where: {

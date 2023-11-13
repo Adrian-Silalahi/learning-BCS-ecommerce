@@ -10,13 +10,13 @@ export default async function getProducts (params: IProductParams): Promise<Prod
     const { category, searchTerm } = params
     let searchString = searchTerm
 
-    if (searchTerm == null) {
+    if (searchTerm === null) {
       searchString = ''
     }
 
     const query: any = {}
 
-    if (category !== null && category !== undefined) {
+    if (category) {
       query.category = category
     }
 

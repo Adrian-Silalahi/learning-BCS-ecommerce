@@ -7,6 +7,21 @@ export async function POST (request: Request): Promise<NextResponse> {
   const body = await request.json()
   const { name, email, password } = body
 
+  // jika true: name sudah terdaftar di database
+  const checkName = await prisma.user.findUnique({
+    where: {
+      name
+    }
+  })
+
+  if (checkName) {
+    return NextResponse.json(
+      // Jika name sudah pernah terdaftar, kembalikan pesan kesalahan
+      { message: 'Nama ini sudah terdaftar' },
+      { status: 409 }
+    )
+  }
+
   // jika true: email sudah terdaftar di database
   const checkEmail = await prisma.user.findUnique({
     where: {
@@ -14,7 +29,7 @@ export async function POST (request: Request): Promise<NextResponse> {
     }
   })
 
-  if (checkEmail !== null && checkEmail !== undefined) {
+  if (checkEmail) {
     return NextResponse.json(
       // Jika email sudah pernah terdaftar, kembalikan pesan kesalahan
       { message: 'Email ini sudah terdaftar' },

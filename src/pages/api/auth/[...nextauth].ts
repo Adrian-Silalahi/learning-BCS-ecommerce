@@ -32,8 +32,8 @@ export const authOptions: AuthOptions = {
 
       async authorize (credentials) {
         // Pertama, ini memeriksa apakah kredensial yang diterima lengkap (email & password). Jika tidak, kembalikan pesan kesalahan
-        const invalidEmail = (credentials?.email) == null
-        const invalidPassword = (credentials?.password) == null
+        const invalidEmail = !credentials?.email
+        const invalidPassword = !credentials?.password
         if (invalidEmail || invalidPassword) {
           throw new Error('Invalid email or password')
         }

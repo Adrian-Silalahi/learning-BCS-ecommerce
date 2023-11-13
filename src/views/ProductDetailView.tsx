@@ -35,7 +35,6 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
     quantity: 1,
     price: product.price
   })
-  const isProductInStock = product.inStock !== null && product.inStock !== null
 
   // Cek apakah ada product di dalam cart
   useEffect(() => {
@@ -106,9 +105,9 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
           {product.brand}
         </div>
         <div
-          className={`${isProductInStock ? 'text-teal-400' : 'text-rose-400'}`}
+          className={`${product?.inStock ? 'text-teal-400' : 'text-rose-400'}`}
         >
-          {isProductInStock ? 'In stock' : 'Out of stock'}
+          {product?.inStock ? 'In stock' : 'Out of stock'}
         </div>
         <Hr />
         {isProductInCart

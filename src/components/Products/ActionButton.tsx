@@ -11,7 +11,6 @@ interface ActionButtonProps {
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({ icon: Icon, onClick, disabled }) => {
-  const isDisabled = (disabled !== null && disabled !== undefined) && disabled
   return (
     <button
     onClick={onClick}
@@ -29,7 +28,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ icon: Icon, onClick, disabl
     border-slate-400
     click
     hover:bg-slate-300 transition-colors duration-300
-    ${isDisabled && 'opacity-50 cursor-not-allowed'}
+    ${disabled && 'opacity-50 cursor-not-allowed'}
     `}
     >
     <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.9 }} >

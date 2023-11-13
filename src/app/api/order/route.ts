@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 export async function PUT (request: Request): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (currentUser === null || currentUser === undefined || currentUser.role !== 'ADMIN')
+  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
   if (isInvalidUser) {
     return NextResponse.json({ Error: 'User is not valid!' }, { status: 401 })

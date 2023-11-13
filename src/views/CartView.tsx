@@ -17,15 +17,14 @@ const CartView: React.FC<CartViewProps> = ({ currentUser }) => {
   const { cartProducts, handleClearCart, cartTotalPrice } = useCart()
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const emprtyCartProducts = cartProducts === null || cartProducts.length === 0
-  const isCartProducts = cartProducts !== null && cartProducts.length !== 0
+  const emprtyCartProducts = !cartProducts || cartProducts.length === 0
 
   const handleCheckout = (): void => {
     setIsLoading(true)
     router.push('/checkout')
   }
 
-  if (currentUser === null || currentUser === undefined) {
+  if (!currentUser) {
     return (
       <div className="flex flex-col items-center">
         <div className="text-2xl">Please login first</div>
@@ -71,7 +70,7 @@ const CartView: React.FC<CartViewProps> = ({ currentUser }) => {
         <div className="justify-self-end">TOTAL</div>
       </div>
       <div>
-        {isCartProducts &&
+        {cartProducts &&
           cartProducts.map((cartProduct) => {
             return <CartItem product={cartProduct} key={cartProduct.id} />
           })}

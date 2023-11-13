@@ -50,8 +50,8 @@ const AddProductsView = (): React.ReactElement => {
   const onSubmit: SubmitHandler<FieldValues> = async (productData) => {
     setIsLoading(true)
     const uploadedImages: ImageInfoType[] = []
-    const categoryNotSelected = (productData.category === null || productData.category === undefined)
-    const imageNotEntered = productData.imageInfo === null || productData.imageInfo === undefined || productData.imageInfo.length === 0
+    const categoryNotSelected = !productData.category
+    const imageNotEntered = !productData.imageInfo || productData.imageInfo.length === 0
 
     if (categoryNotSelected) {
       setIsLoading(false)
@@ -82,8 +82,7 @@ const AddProductsView = (): React.ReactElement => {
 
   const addImageInfoToState = useCallback((value: ImageType) => {
     setImageInfoTemporary((prev) => {
-      const isNotPrev = prev === null || prev === undefined
-      if (isNotPrev) {
+      if (!prev) {
         return [value]
       }
       return [...prev, value]
@@ -92,7 +91,7 @@ const AddProductsView = (): React.ReactElement => {
 
   const removeImageInfoFromState = useCallback((value: ImageType) => {
     setImageInfoTemporary((prev) => {
-      if (prev !== null && prev !== undefined) {
+      if (prev) {
         const filteredImageInfo = prev.filter((item) => item.color !== value.color)
         return filteredImageInfo
       }

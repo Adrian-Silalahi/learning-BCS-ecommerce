@@ -5,9 +5,9 @@ import { NextResponse } from 'next/server'
 // Membuat sebuah fungsi untuk create akun user
 export async function POST (request: Request): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
-  const isNotValidUser = (currentUser === null || currentUser === undefined) || currentUser.role !== 'ADMIN'
+  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
-  if (isNotValidUser) {
+  if (isInvalidUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const body = await request.json()

@@ -6,7 +6,7 @@ import { type Order, type User } from '@prisma/client'
 import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 import { formatRupiah } from '../utils/FormatRupiah'
 import Heading from '../components/Heading'
-import StockStatus from '../components/StockStatus'
+import Status from '../components/Status'
 import { MdAccessTimeFilled, MdDeliveryDining, MdDone, MdRemoveRedEye } from 'react-icons/md'
 import ActionButton from '../components/Products/ActionButton'
 import { useRouter } from 'next/navigation'
@@ -26,7 +26,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
   const router = useRouter()
   let rows: any = []
 
-  if (orders !== null && orders !== undefined) {
+  if (orders) {
     rows = orders.map((order) => {
       return {
         id: order.id,
@@ -63,7 +63,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
         return (
         <div>{paymentStatus === 'pending'
           ? (
-            <StockStatus
+            <Status
               text='pending'
               icon={MdAccessTimeFilled}
               bg='bg-slate-200'
@@ -71,7 +71,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
             )
           : paymentStatus === 'complete'
             ? (
-            <StockStatus
+            <Status
               text='completed'
               icon={MdDone}
               bg='bg-green-200'
@@ -92,7 +92,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
         return (
         <div>{deliveryStatus === 'pending'
           ? (
-            <StockStatus
+            <Status
               text='pending'
               icon={MdAccessTimeFilled}
               bg='bg-slate-200'
@@ -100,7 +100,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
             )
           : deliveryStatus === 'dispatched'
             ? (
-            <StockStatus
+            <Status
               text='dispatched'
               icon={MdDeliveryDining}
               bg='bg-purple-200'
@@ -108,7 +108,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
               )
             : deliveryStatus === 'delivered'
               ? (
-            <StockStatus
+            <Status
               text='delivered'
               icon={MdDone}
               bg='bg-green-200'
@@ -141,7 +141,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
           onClick={() => { handleDeliver(id) }}/>
          <ActionButton
           icon={MdRemoveRedEye}
-          onClick={() => { router.push(`order/${id}`) }}/>
+          onClick={() => { router.push(`/order/${id}`) }}/>
         </div>
         )
       }

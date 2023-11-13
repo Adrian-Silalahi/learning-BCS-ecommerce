@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function DELETE (request: Request, { params }: { params: { id: string } }): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (currentUser === null || currentUser === undefined || currentUser.role !== 'ADMIN')
+  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
   if (isInvalidUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

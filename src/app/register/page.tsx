@@ -8,7 +8,7 @@ import RejectAuthPage from '@/src/components/RejectAuthPage'
 
 const Register = async (): Promise<React.ReactElement> => {
   const currentUser = await getCurrentUser()
-  if (currentUser !== null && currentUser !== undefined) {
+  if (currentUser) {
     return <RejectAuthPage/>
   }
 

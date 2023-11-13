@@ -8,7 +8,7 @@ import React from 'react'
 const ManageProducts = async (): Promise<React.ReactElement> => {
   const products = await getProducts({ category: 'null' })
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (currentUser === null || currentUser === undefined || currentUser.role !== 'ADMIN')
+  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
   if (isInvalidUser) {
     return <NullData title={"Oops.. You don't have permission"}/>

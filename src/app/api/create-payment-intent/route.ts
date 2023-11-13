@@ -21,7 +21,7 @@ const getTotalPrice = (products: ProductType[]): number => {
 export async function POST (request: Request): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
 
-  if (currentUser === null || currentUser === undefined) {
+  if (!currentUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -40,13 +40,13 @@ export async function POST (request: Request): Promise<NextResponse> {
   }
 
   // Kalau paymentIntentId ada, artinya payment intent juga sudah dibuat / ada
-  if (paymentIntentId !== null && paymentIntentId !== undefined) {
+  if (paymentIntentId) {
     // Kalau lupa tentang definisi intent, lihat di materi
     const currentIntent = await stripe.paymentIntents.retrieve(
       paymentIntentId
     )
 
-    if (currentIntent !== null && currentIntent !== undefined) {
+    if (currentIntent) {
       const updatedIntent = await stripe.paymentIntents.update(
         paymentIntentId,
         { amount: total }
@@ -72,7 +72,7 @@ export async function POST (request: Request): Promise<NextResponse> {
       ])
 
       // Kalau tidak  ada existing order
-      if (existingOrder === null || existingOrder === undefined) {
+      if (!existingOrder) {
         return NextResponse.json(
           { error: 'Invalid Payment Intent' },
           { status: 404 })

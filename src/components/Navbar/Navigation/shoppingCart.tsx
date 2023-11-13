@@ -13,7 +13,6 @@ interface ShoppingCartProps {
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ currentUser }) => {
   const router = useRouter()
   const { cartTotalQuantity } = useCart()
-  const isCurrentUser = currentUser !== null && currentUser !== undefined
 
   return (
     <div
@@ -24,7 +23,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ currentUser }) => {
         <CiShoppingCart />
       </div>
       <span className="absolute top-[-10px] right-[-10px] bg-slate-700 text-white h-6 w-6 rounded-full flex items-center justify-center text-sm">
-        {isCurrentUser ? cartTotalQuantity : 0}
+        {currentUser ? cartTotalQuantity : 0}
       </span>
     </div>
   )

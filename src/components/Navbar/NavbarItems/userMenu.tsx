@@ -16,7 +16,6 @@ interface UserMenuProps {
   currentUser: SafeUser
 }
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  const isCurrentUser = currentUser !== null && currentUser !== undefined
   const [isDropDown, setIsDropDown] = useState(false)
 
   const changeToggle = useCallback(() => {
@@ -37,7 +36,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         </div>
         {isDropDown && (
           <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
-            {isCurrentUser ? (<div>
+            {currentUser ? (<div>
               <Link href="/orders">
                 <MenuItem changeToggle={changeToggle}>Your Orders</MenuItem>
               </Link>

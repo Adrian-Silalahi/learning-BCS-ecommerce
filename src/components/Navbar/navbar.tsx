@@ -43,6 +43,9 @@ const Navbar = async (): Promise<React.ReactElement> => {
             </Link>
             <div className="hidden md:block ">Search</div>
             <div className="flex items-center gap-8 md:gap-12">
+              {currentUser && (
+                <h2 className='text-slate-800 '>Hi, {currentUser?.name}</h2>
+              )}
               <ShoppingCart currentUser={currentUser}/>
               <UserMenu currentUser={currentUser}/>
             </div>

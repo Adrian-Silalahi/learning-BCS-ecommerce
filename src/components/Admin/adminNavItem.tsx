@@ -12,9 +12,8 @@ const AdminNavItem: React.FC<AdminNavItemProps> = ({
   icon: Icon,
   label
 }) => {
-  const isSelected = (selected !== null && selected !== undefined) && selected
   return (
-    <div className={`flex items-center justify-center text-center gap-1 p-2 border-b-2 hover:text-slate-800  transition cursor-pointer ${isSelected ? 'border-b-slate-800 text-slate-800}' : 'border-transparent text-slate-500'}`}>
+    <div className={`flex items-center justify-center text-center gap-1 p-2 border-b-2 hover:text-slate-800  transition cursor-pointer ${selected ? 'border-b-slate-800 text-slate-800}' : 'border-transparent text-slate-500'}`}>
         <Icon size={20} />
         <div className='font-medium text-sm text-center'></div>
     </div>

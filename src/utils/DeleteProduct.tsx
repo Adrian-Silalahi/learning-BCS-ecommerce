@@ -16,7 +16,7 @@ export const deleteProduct = async ({ id, imageInfo, storage, router }: deletePr
     try {
       for (const info of imageInfo) {
         const image = info.image
-        if (image !== null || image !== undefined) {
+        if (image) {
           const imageRef = ref(storage, image)
           await deleteObject(imageRef)
           console.log('image deleted', image)

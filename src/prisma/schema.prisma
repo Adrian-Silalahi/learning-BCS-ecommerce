@@ -13,7 +13,7 @@ generator client {
 //Model User atau cetak biru ini nantinya akan kita gunakan sebagai cetak biru user dalam melakukan register
 model User {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
+  name          String?   @unique
   email         String?   @unique
   emailVerified DateTime?
   image         String?
