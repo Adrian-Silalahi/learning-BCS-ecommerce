@@ -1,5 +1,6 @@
-import { AiFillPhone, AiOutlineDesktop, AiOutlineLaptop } from 'react-icons/ai'
-import { MdOutlineKeyboard, MdStorefront, MdTv, MdWatch } from 'react-icons/md'
+import { MdStorefront } from 'react-icons/md'
+import { PiBagSimpleBold, PiHoodie, PiPants, PiShirtFolded, PiTShirtBold } from 'react-icons/pi'
+import { TbJacket } from 'react-icons/tb'
 
 export const categories = [
   {
@@ -7,27 +8,27 @@ export const categories = [
     icon: MdStorefront
   },
   {
-    label: 'Phone',
-    icon: AiFillPhone
+    label: 'T-shirt',
+    icon: PiTShirtBold, 
   },
   {
-    label: 'Laptop',
-    icon: AiOutlineLaptop
+    label: 'Shirt',
+    icon: PiShirtFolded
   },
   {
-    label: 'Desktop',
-    icon: AiOutlineDesktop
+    label: 'Vest',
+    icon: TbJacket
   },
   {
-    label: 'watch',
-    icon: MdWatch
+    label: 'Pants',
+    icon: PiPants
   },
   {
-    label: 'Tv',
-    icon: MdTv
+    label: 'Jacket',
+    icon: PiHoodie
   },
   {
-    label: 'Accesories',
-    icon: MdOutlineKeyboard
+    label: 'Tote bag',
+    icon: PiBagSimpleBold
   }
 ]

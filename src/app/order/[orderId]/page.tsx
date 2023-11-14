@@ -1,6 +1,6 @@
 import Container from '@/src/components/Container'
 import React from 'react'
-import getOrderById from '@/src/actions/getOrderById'
+import getOrderById from '@/src/actions/getOrderByOrderId'
 import OrderDetailsView from '@/src/views/OrderDetailsView'
 import NullData from '@/src/components/NullData'
 

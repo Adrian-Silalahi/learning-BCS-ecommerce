@@ -5,6 +5,7 @@ import { Montserrat } from 'next/font/google'
 import ShoppingCart from './Navigation/shoppingCart'
 import UserMenu from './NavbarItems/userMenu'
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import Categories from './Categories'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -20,7 +21,7 @@ const Navbar = async (): Promise<React.ReactElement> => {
   bg-slate-200
   z-30
   shadow-sm
-  py-2
+  py-[2px]
   "
     >
       <div className="border-b-[1px]">
@@ -41,7 +42,6 @@ const Navbar = async (): Promise<React.ReactElement> => {
                 {STORE_NAME}
               </div>
             </Link>
-            <div className="hidden md:block ">Search</div>
             <div className="flex items-center gap-8 md:gap-12">
               {currentUser && (
                 <h2 className='text-slate-800 '>Hi, {currentUser?.name}</h2>
@@ -52,6 +52,7 @@ const Navbar = async (): Promise<React.ReactElement> => {
           </div>
         </Container>
       </div>
+      <Categories/>
     </div>
   )
 }

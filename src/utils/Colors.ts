@@ -10,13 +10,13 @@ export const imageInfos = [
     image: null
   },
   {
-    color: 'Silver',
-    colorCode: '#c0c0c0',
+    color: 'Yellow',
+    colorCode: '#FFFF00',
     image: null
   },
   {
-    color: 'Gray',
-    colorCode: '#808080',
+    color: 'Army',
+    colorCode: '#4B5320',
     image: null
   },
   {
@@ -25,8 +25,8 @@ export const imageInfos = [
     image: null
   },
   {
-    color: 'Gold',
-    colorCode: '#FFD700',
+    color: 'Navy',
+    colorCode: '#000080',
     image: null
   },
   {
@@ -35,8 +35,8 @@ export const imageInfos = [
     image: null
   },
   {
-    color: 'Graphite',
-    colorCode: '#383838',
+    color: 'Cream',
+    colorCode: '#F9E4BC',
     image: null
   }
 ]

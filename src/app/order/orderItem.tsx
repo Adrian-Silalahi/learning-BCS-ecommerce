@@ -2,12 +2,12 @@
 
 import { formatRupiah } from '@/src/utils/FormatRupiah'
 import TruncateText from '@/src/utils/TruncateText'
-import { ProductType } from '@prisma/client'
+import { type ProductType } from '@prisma/client'
 import Image from 'next/image'
 import React from 'react'
 
-interface OrderItemProps{
-    product: ProductType
+interface OrderItemProps {
+  product: ProductType
 }
 
 const OrderItem: React.FC<OrderItemProps> = ({ product }) => {

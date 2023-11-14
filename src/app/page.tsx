@@ -1,8 +1,15 @@
 import React from 'react'
 import HomeViews from '../views/HomeView'
+import { ProductFilterParams } from '../types'
 
-const Home = (): React.JSX.Element => {
-  return <HomeViews />
+interface HomeViewsProps{
+  searchParams: ProductFilterParams
+}
+
+const Home = ({searchParams}: HomeViewsProps): React.JSX.Element => {
+  console.log('searchParams',searchParams);
+  
+  return <HomeViews searchParams={searchParams} />
 }
 
 export default Home

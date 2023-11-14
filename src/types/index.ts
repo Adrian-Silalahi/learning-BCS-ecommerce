@@ -11,3 +11,7 @@ export interface ImageType {
   colorCode: string
   image: File | null
 }
+
+export interface ProductFilterParams {
+  category?: string | null
+}

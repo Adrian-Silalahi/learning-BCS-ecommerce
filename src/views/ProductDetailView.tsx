@@ -31,7 +31,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
     description: product.description,
     category: product.category,
     brand: product.brand,
-    imageInfo: { ...product.images[0] },
+    imageInfo: { ...product.imageInfo[0] },
     quantity: 1,
     price: product.price
   })
@@ -131,7 +131,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
           : (
           <>
             <SetColor
-              images={product.images}
+              images={product.imageInfo}
               currentImageColor={selectedProduct.imageInfo.color}
               handleColorSelect={handleColorSelect}
             />

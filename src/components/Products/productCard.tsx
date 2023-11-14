@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="aspect-square overflow-hidden relative w-full mb-4">
           <Image
             fill
-            src={product?.images[0].image}
+            src={product?.imageInfo[0].image}
             alt={product?.name}
             className="w-full h-full object-contain "
           />
@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Reviews */}
-        <div>{product?.reviews.length} reviews</div>
+        <div>{product?.reviews?.length} reviews</div>
 
         {/* Price */}
         <div className="font-semibold">{formatRupiah(product?.price)}</div>
