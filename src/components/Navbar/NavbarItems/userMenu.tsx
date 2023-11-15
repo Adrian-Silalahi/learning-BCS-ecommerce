@@ -40,13 +40,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               <Link href="/orders">
                 <MenuItem changeToggle={changeToggle}>Your Orders</MenuItem>
               </Link>
-              <Link href="/admin">
-                <MenuItem changeToggle={changeToggle}>Admin Dashboard</MenuItem>
-              </Link>
+              {currentUser?.role === 'ADMIN' && (
+                              <Link href="/admin">
+                              <MenuItem changeToggle={changeToggle}>Admin Dashboard</MenuItem>
+                            </Link>
+              )}
               <MenuItem
                 changeToggle={ async () => {
                   changeToggle()
-                  await signOut().then(() => { toast.success('Berhasil Logout') })
+                  await signOut().then(() => { toast.success('Success Logout') })
                 }}
               >
                 Logout

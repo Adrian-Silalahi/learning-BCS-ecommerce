@@ -16,7 +16,7 @@ const Login = async (): Promise<any> => {
   return (
     <div>
       <div className="flex h-screen">
-        <div className="flex-1 w-full h-full rounded-xl relative overflow-hidden ">
+        <div className="flex-1 w-full h-full rounded-e-xl relative overflow-hidden ">
           <Image
             alt="login-img"
             src={login_img}

@@ -15,7 +15,7 @@ const Register = async (): Promise<React.ReactElement> => {
   return (
     <div>
       <div className="flex h-screen">
-          <div className="flex-1 w-full h-full rounded-xl relative overflow-hidden ">
+          <div className="flex-1 w-full h-full rounded-e-xl relative overflow-hidden ">
           <Image
             alt="register-img"
             src={register_img}

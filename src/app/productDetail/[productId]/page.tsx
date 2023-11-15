@@ -26,7 +26,7 @@ const ProductDetail: React.FC<ParamProps> = async ({ params }) => {
       <Container>
         <ProductDetailView product={product} />
         <div className="flex flex-col mt-20 gap-4">
-          <AddRating product={product} user={user}/>
+          <AddRating product={product} currentUser={user}/>
           <ListRating product={product} />
         </div>
       </Container>

@@ -104,33 +104,17 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
           <span className="text-slate-700 font-semibold">BRAND</span>:{' '}
           {product.brand}
         </div>
+        <div>
+          <span className="text-slate-700 font-semibold">PRICE</span>:{' '}
+          {product.price}
+        </div>
         <div
           className={`${product?.inStock ? 'text-teal-400' : 'text-rose-400'}`}
         >
           {product?.inStock ? 'In stock' : 'Out of stock'}
         </div>
         <Hr />
-        {isProductInCart
-          ? (
-          <>
-            <p className="flex gap-1">
-              <MdCheckCircle className="text-teal-400" size={20} />
-              <span>Product added to cart</span>
-            </p>
-            <div className="max-w-[300px]">
-              <CustomButton
-                label="View Cart"
-                outline
-                onClick={() => {
-                  router.push('/cart')
-                }}
-              />
-            </div>
-          </>
-            )
-          : (
-          <>
-            <SetColor
+        <SetColor
               images={product.imageInfo}
               currentImageColor={selectedProduct.imageInfo.color}
               handleColorSelect={handleColorSelect}
@@ -151,8 +135,25 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
                 }}
               />
             </div>
+        {isProductInCart
+          && (
+          <>
+            <p className="flex gap-1">
+              <MdCheckCircle className="text-teal-400" size={20} />
+              <span>Product added to cart</span>
+            </p>
+            <div className="max-w-[300px]">
+              <CustomButton
+                label="View Cart"
+                outline
+                onClick={() => {
+                  router.push('/cart')
+                }}
+              />
+            </div>
           </>
-            )}
+            )
+         }
       </div>
     </div>
   )

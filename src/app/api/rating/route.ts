@@ -21,7 +21,7 @@ export async function POST (request: Request) {
   // Jika true artinya user sudah pernah me-review product. Pengecekan ini dimaksudkan agar user tidak bisa men-review product lebih dari 1 kali
   const userReview = product?.reviews?.find(((review: Review) => { return review.userId === currentUser.id }))
 
-  // Cara bacanya, jika user sudah pernah review product, ataupun status ordernya belum delivered, kembalikan error
+  // Cara bacanya, jika user sudah pernah review product, atau status order user belum delivered, kembalikan error
   if (userReview || !deliveredOrder) {
     return NextResponse.error()
   }

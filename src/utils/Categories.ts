@@ -24,7 +24,7 @@ export const categories = [
     icon: PiPants
   },
   {
-    label: 'Jacket',
+    label: 'Outwear',
     icon: PiHoodie
   },
   {
