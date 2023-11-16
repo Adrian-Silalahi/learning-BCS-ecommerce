@@ -15,7 +15,7 @@ const AddProducts = async (): Promise<React.ReactElement> => {
 
   return (
     <div>
-      <Container>
+      <Container className="py-3">
         <FormWrap>
           <AddProductsView/>
         </FormWrap>

@@ -127,16 +127,9 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
               handleIncreaseQuantity={handleIncreaseQuantity}
             />
             <Hr />
-            <div className="max-w-[300px]">
-              <CustomButton
-                label="Add to cart"
-                onClick={() => {
-                  handleAddProductToCart(selectedProduct)
-                }}
-              />
-            </div>
+            
         {isProductInCart
-          && (
+          ? (
           <>
             <p className="flex gap-1">
               <MdCheckCircle className="text-teal-400" size={20} />
@@ -152,6 +145,16 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
               />
             </div>
           </>
+            ) :
+            (
+              <div className="max-w-[300px]">
+              <CustomButton
+                label="Add to cart"
+                onClick={() => {
+                  handleAddProductToCart(selectedProduct)
+                }}
+              />
+            </div>
             )
          }
       </div>

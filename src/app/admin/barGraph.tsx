@@ -1,12 +1,12 @@
 'use client'
 
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
+import { Bar } from 'react-chartjs-2'
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
 
-interface BarGraphProps{
-    data: GraphData[]
+interface BarGraphProps {
+  dailyOrderData: GraphData[]
 }
 
 type GraphData = {
@@ -15,33 +15,34 @@ type GraphData = {
     totalAmount: number
 }
 
-const BarGraph:React.FC<BarGraphProps> = ({data}) => {
-    console.log(data)
-    const labels = data.map((item) => item.day)
-    const amounts = data.map((item) => item.totalAmount)
+const BarGraph: React.FC<BarGraphProps> = ({ dailyOrderData }) => {
+  // Jumlah data labels dan amounts harus sama
+  // artinya labels[i] = amounts[i] artinya, data labels[i] diambil dari data amounts[i]
+  const labels: string[] = dailyOrderData.map((order) => order.day)
+  const amounts: number[] = dailyOrderData.map((order) => order.totalAmount)
 
-    const chartData = {
-        labels,
-        datasets: [
-            {
-                label: 'Sale Amount',
-                data: amounts,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWith: 1
-            },
-        ],
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Amount per day',
+        data: amounts,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWith: 1
+      }
+    ]
+  }
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
     }
+  }
 
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-
-    return ( <Bar data={chartData} options={options}></Bar> )
+  return (<Bar data={chartData} options={options}></Bar>)
 }
 
 export default BarGraph

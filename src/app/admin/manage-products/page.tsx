@@ -6,7 +6,7 @@ import ManageProductsView from '@/src/views/ManageProductsView'
 import React from 'react'
 
 const ManageProducts = async (): Promise<React.ReactElement> => {
-  const products = await getProducts({ category: 'null' })
+  const products = await getProducts({ category: null })
   const currentUser = await getCurrentUser()
   const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 

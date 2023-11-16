@@ -80,13 +80,13 @@ const SummaryViews: React.FC<SummaryViewsProps> = ({ orders, products, users }) 
   return (
     <div className='max-w-[950px] mx-auto'>
       <div className='mb-4 mt-1'>
-        <Heading title='Stats' center />
+        <Heading title='Summary' center />
       </div>
       <div className='grid grid-cols-2 gap-3 h-[70vh] overflow-y-auto mb-4'>
         {
           summaryKeys && summaryKeys.map((key) => {
-            return <div key={key} className='rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition'>
-              <div className='text-xl md:text-4xl font-bold'>
+            return <div key={key} className='rounded-xl border-2 flex flex-col items-center justify-center gap-1 transition'>
+              <div className='text-xl md:text-3xl font-bold text-[#147463]'>
                   {summaryData[key].label === 'Total Sale' ? 
                   <>
                     {formatRupiah(summaryData[key].digit)}
@@ -97,7 +97,7 @@ const SummaryViews: React.FC<SummaryViewsProps> = ({ orders, products, users }) 
                   </>
                   }
               </div>
-              <div>{summaryData[key].label}</div>
+              <div className='font-semibold'>{summaryData[key].label}</div>
             </div>
           })
         }

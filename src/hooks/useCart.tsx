@@ -3,6 +3,7 @@
 import React, { createContext, useCallback, useContext, useState, useEffect } from 'react'
 import { type ProductType } from '../app/productDetail/ProductDetailType'
 import { toast } from 'react-hot-toast'
+import axios from 'axios'
 
 // Mendefinisikan type dari value²/data yang disediakan cart context
 interface CartContextType {
@@ -79,7 +80,6 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
       localStorage.setItem('cartItemsStorage', JSON.stringify(updatedCart))
       return updatedCart
     })
-    console.log('Product ditambahkan ke keranjang')
   }, [])
 
   const handleRemoveProductFromCart = useCallback(

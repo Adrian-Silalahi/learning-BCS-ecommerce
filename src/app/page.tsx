@@ -7,8 +7,6 @@ interface HomeViewsProps{
 }
 
 const Home = ({searchParams}: HomeViewsProps): React.JSX.Element => {
-  console.log('searchParams',searchParams);
-  
   return <HomeViews searchParams={searchParams} />
 }
 

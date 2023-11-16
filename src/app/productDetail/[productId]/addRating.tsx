@@ -23,8 +23,6 @@ interface AddRatingProps {
 }
 
 const AddRating: React.FC<AddRatingProps> = ({ product, currentUser }) => {
-  console.log('product', product)
-  console.log('currentUser', currentUser)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 

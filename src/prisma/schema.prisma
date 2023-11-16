@@ -65,6 +65,17 @@ model Product{
   reviews Review[]
 }
 
+model CartProduct{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  description String
+  category String
+  brand String
+  imageInfo Image[]
+  quantity Float
+  price Float
+}
+
 model Review{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId

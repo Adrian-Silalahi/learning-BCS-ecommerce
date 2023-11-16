@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     >
       <div className="flex flex-col items-center w-full gap-1">
         {/* Image */}
-        <div className="aspect-square overflow-hidden relative w-full mb-4">
+        <div className="aspect-square overflow-hidden relative w-full mb-4 ">
           <Image
             fill
             src={product?.imageInfo[0].image}
@@ -34,8 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           />
         </div>
 
-        {/* Title */}
-        <div className=" h-[50px]">{TruncateText(product?.name)}</div>
+          {/* Title */}
+        <div className=" h-[50px] font-bold">{TruncateText(product?.name)}</div>
 
         {/* Rating */}
         <div>
@@ -46,8 +46,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div>{product?.reviews?.length} reviews</div>
 
         {/* Price */}
-        <div className="font-semibold">{formatRupiah(product?.price)}</div>
-      </div>
+        <div className="font-semibold text-[#147463]">{formatRupiah(product?.price)}</div>
+        </div>
     </div>
   )
 }
