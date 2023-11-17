@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
-import { type ProductType } from '@/src/app/productDetail/ProductDetailType'
 import Link from 'next/link'
 import TruncateText from '@/src/utils/TruncateText'
 import Image from 'next/image'
 import Counter from '@/src/components/Counter/counter'
 import { useCart } from '@/src/hooks/useCart'
+import { ProductType } from '@/src/types'
 
 interface CartItemProps {
   product: ProductType
@@ -17,6 +17,8 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
     handleIncreaseProductCartQty,
     handleDecreaseProductCartQty
   } = useCart()
+
+  console.log('CARTproduct', product)
   return (
     <div className="grid grid-cols-5 text-xs md:text-sm gap-4 border-t-[1.5px] border-slate-200 py-4 items-center">
       <div className="col-span-2 justify-self-start flex gap-2 md:gap-4">

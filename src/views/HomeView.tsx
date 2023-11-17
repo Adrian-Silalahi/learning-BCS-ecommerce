@@ -1,5 +1,4 @@
 import React from 'react'
-import HomeBanner from '../components/HomeBanner'
 import Container from '../components/Container'
 import ProductCard from '../components/Products/productCard'
 import getProducts from '../actions/getProducts'
@@ -26,7 +25,7 @@ const HomeViews = async({searchParams}: HomeViewsProps): Promise<React.ReactElem
             </div>
           </div>
         </div>
-      <div className="px-8 py-24">
+      <div className="px-8 pb-24 pt-14">
         {products.length === 0 ? (<NullData title='Oops! No products found. Click "All" to clear filters ' /> )
         : (
           <Container className="grid grid-cols-2 lg:grid-cols-5 gap-8 ">

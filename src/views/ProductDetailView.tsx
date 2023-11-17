@@ -8,7 +8,7 @@ import SetColor from '../components/Products/setColorProduct'
 import {
   type ProductType,
   type ImageInfoType
-} from '../app/productDetail/ProductDetailType'
+} from '@/src/types'
 import Counter from '../components/Counter/counter'
 import CustomButton from '../components/CustomButton'
 import ProductImage from '../components/Products/productImage'
@@ -120,13 +120,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
               handleColorSelect={handleColorSelect}
             />
             <Hr />
-            <Counter
-              isQuantity={true}
-              currentQuantity={selectedProduct.quantity}
-              handleDecreaseQuantity={handleDecreaseQuantity}
-              handleIncreaseQuantity={handleIncreaseQuantity}
-            />
-            <Hr />
+            
             
         {isProductInCart
           ? (
@@ -147,6 +141,14 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
           </>
             ) :
             (
+              <>
+              <Counter
+              isQuantity={true}
+              currentQuantity={selectedProduct.quantity}
+              handleDecreaseQuantity={handleDecreaseQuantity}
+              handleIncreaseQuantity={handleIncreaseQuantity}
+            />
+            <Hr />
               <div className="max-w-[300px]">
               <CustomButton
                 label="Add to cart"
@@ -155,6 +157,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product }) => {
                 }}
               />
             </div>
+            </>
             )
          }
       </div>

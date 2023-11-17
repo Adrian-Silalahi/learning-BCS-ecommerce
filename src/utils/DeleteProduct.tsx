@@ -2,7 +2,7 @@ import axios from 'axios'
 import { type FirebaseStorage, deleteObject, ref } from 'firebase/storage'
 import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import toast from 'react-hot-toast'
-import { type ImageInfoType } from '../app/productDetail/ProductDetailType'
+import { type ImageInfoType } from '@/src/types'
 
 interface deleteProductProps {
   id: string

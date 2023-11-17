@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useCallback, useContext, useState, useEffect } from 'react'
-import { type ProductType } from '../app/productDetail/ProductDetailType'
+import { type ProductType } from '@/src/types'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
@@ -33,13 +33,14 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
 }) => {
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0)
   const [cartTotalPrice, setCartTotalPrice] = useState(0)
-  const [cartProducts, setCartProducts] = useState<ProductType[] | null>(null)
+  const [cartProducts, setCartProducts] = useState<ProductType[] | []>([])
 
   useEffect(() => {
-    const cartItems: any = localStorage.getItem('cartItemsStorage')
-    const localStorageProducts: ProductType[] | null = JSON.parse(cartItems)
+    axios.get('/api/cart').then(response => {
+      const cartItems = response.data
+      setCartProducts(cartItems)
+    })
 
-    setCartProducts(localStorageProducts)
   }, [])
 
   useEffect(() => {
@@ -76,23 +77,25 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
       } else {
         updatedCart = [product]
       }
-      toast.success('Produk ditambahkan ke keranjang')
-      localStorage.setItem('cartItemsStorage', JSON.stringify(updatedCart))
+      axios.post('/api/cart', product).then(()=> toast.success('Produk ditambahkan ke keranjang'))
       return updatedCart
     })
   }, [])
 
-  const handleRemoveProductFromCart = useCallback(
-    (itemSelected: ProductType) => {
-      if (cartProducts !== null) {
-        const filterProduct = cartProducts.filter((product) => {
-          return product.id !== itemSelected.id
-        })
-        setCartProducts(filterProduct)
-        localStorage.setItem('cartItemsStorage', JSON.stringify(filterProduct))
-      }
-
-      toast.success('Produk dihapus dari keranjang')
+  const handleRemoveProductFromCart = useCallback((itemSelected: ProductType) => {
+      axios.delete(`/api/cart/${itemSelected.id}`)
+      .then(() => {
+        if (cartProducts !== null) {
+          const filterProduct = cartProducts.filter((product) => {
+            return product.id !== itemSelected.id
+          })
+          setCartProducts(filterProduct)
+        }
+        toast.success('Produk dihapus dari keranjang')
+      }).catch((error) => {
+        toast.error('Failed to delete product')
+        console.log(error)
+      })
     },
     [cartProducts]
   )
@@ -159,9 +162,10 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
   )
 
   const handleClearCart = useCallback(() => {
-    setCartProducts(null)
-    localStorage.setItem('cartItemsStorage', JSON.stringify(null))
-    setcartTotalQuantity(0)
+    axios.delete('/api/cart').then(()=> {
+      setCartProducts([])
+      setcartTotalQuantity(0)
+    })
   }, [])
 
   const value = {

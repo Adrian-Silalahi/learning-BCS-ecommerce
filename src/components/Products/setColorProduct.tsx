@@ -1,6 +1,6 @@
 'use client'
 
-import { type ImageInfoType } from '@/src/app/productDetail/ProductDetailType'
+import { type ImageInfoType } from '@/src/types'
 import React from 'react'
 
 interface SetColorProps {

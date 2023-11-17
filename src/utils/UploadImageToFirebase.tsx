@@ -2,7 +2,7 @@ import toast from 'react-hot-toast'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import firebaseApp from '../libs/firebase'
 import { type FieldValues } from 'react-hook-form'
-import { type ImageInfoType } from '../app/productDetail/ProductDetailType'
+import { type ImageInfoType } from '@/src/types'
 
 interface uploadImageToFirebaseProps {
   productData: FieldValues

@@ -3,7 +3,7 @@
 import {
   type ProductType,
   type ImageInfoType
-} from '@/src/app/productDetail/ProductDetailType'
+} from '@/src/types'
 import Image from 'next/image'
 import React from 'react'
 

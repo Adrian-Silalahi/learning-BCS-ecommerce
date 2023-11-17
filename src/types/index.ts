@@ -15,3 +15,21 @@ export interface ImageType {
 export interface ProductFilterParams {
   category?: string | null
 }
+
+export interface ProductType {
+  id: string
+  userId?: string
+  name: string
+  description: string
+  category: string
+  brand: string
+  imageInfo: ImageInfoType
+  quantity: number
+  price: number
+}
+
+export interface ImageInfoType {
+  color: string
+  colorCode: string
+  image: string
+}
