@@ -22,7 +22,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   role Role @default(USER)
-  cartProducts  CartProduct[]
+  cartProducts  cartProduct[]
   accounts      Account[]
   orders        Order[]
   reviews       Review[]
@@ -61,13 +61,14 @@ model Product{
   price Float
   brand String
   category String
-  inStock Boolean
+  stock Int
   imageInfo Image[]
   reviews Review[]
 }
 
-model CartProduct{
-  id String @id @map("_id") @db.ObjectId
+model cartProduct{
+  id String @id @map("_id")
+  productId String @db.ObjectId
   userId String @db.ObjectId
   name String
   description String
@@ -76,6 +77,7 @@ model CartProduct{
   imageInfo Image
   quantity Float
   price Float
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -101,7 +103,7 @@ model Order{
   deliveryStatus String?
   createDate DateTime @default(now())
   paymentIntentId String @unique
-  products ProductType[]
+  products CartProductType[]
   address Adress?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -109,6 +111,20 @@ model Order{
 
 type ProductType {
   id String
+  productId String?
+  name String
+  description String
+  category String
+  brand String
+  imageInfo Image
+  quantity Int
+  price Float
+}
+
+type CartProductType {
+  id String
+  productId String
+  userId String
   name String
   description String
   category String

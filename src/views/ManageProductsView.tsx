@@ -26,13 +26,15 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
 
   if (products) {
     rows = products.map((product) => {
+      console.log('stock',product.stock);
+      
       return {
         id: product.id,
         name: product.name,
         price: formatRupiah(product.price),
         category: product.category,
         brand: product.brand,
-        inStock: product.inStock,
+        stock: product.stock,
         imageInfo: product.imageInfo
       }
     })
@@ -56,16 +58,16 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
     { field: 'category', headerName: 'Category', width: 100 },
     { field: 'brand', headerName: 'Brand', width: 100 },
     {
-      field: 'inStock',
-      headerName: 'In Stock',
+      field: 'Stock',
+      headerName: 'Stock',
       width: 120,
       renderCell: (params) => {
-        const isStock = params.row.inStock
+        const productStock = params.row.stock
         return (
-        <div>{isStock === true
+        <div>{productStock > 0
           ? (
             <Status
-              text='in Stock'
+              text= {productStock}
               icon={MdDone}
               bg='bg-teal-200'
               color='text-teal-700'/>
@@ -88,35 +90,26 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
       renderCell: (params) => {
         const id = params.row.id
         const imageInfo = params.row.imageInfo
-        const isStock = params.row.inStock
-
         return (
-        <div className='flex justify-between gap-4 w-full'>
-         <ActionButton
-          icon={MdCached}
-          onClick={() => { void handleToggleStock(id, isStock) }}/>
+        <div className='flex justify-normal gap-4 w-full'>
          <ActionButton
           icon={MdDelete}
           onClick={() => { void handleDelete(id, imageInfo) }}/>
          <ActionButton
           icon={MdRemoveRedEye}
-          onClick={() => { router.push(`product/${id}`) }}/>
+          onClick={() => { router.push(`/productDetail/${id}`) }}/>
         </div>
         )
       }
     }
   ]
 
-  const handleToggleStock = useCallback(async (id: string, inStock: boolean) => {
-    await changeStockStatusInDB({ id, inStock, router })
-  }, [])
-
   const handleDelete = useCallback(async (id: string, imageInfo: any[]) => {
     await deleteProduct({ id, imageInfo, storage, router })
   }, [])
 
   return (
-    <div className='max-w-[1150px] m-auto text-xl'>
+    <div className='max-w-[1000px] m-auto text-xl'>
       <div className='mb-4 mt-8'>
         <Heading title='Manage Products'/>
       </div>
@@ -130,7 +123,6 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
           }
         }}
   pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  checkboxSelection // Jika true, maka memunculkan checkbox di bagian awal row
   disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
 />
       </div>

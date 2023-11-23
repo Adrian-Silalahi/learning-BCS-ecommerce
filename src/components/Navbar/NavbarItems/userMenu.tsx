@@ -11,6 +11,7 @@ import BackDrop from './backDrop'
 import { type SafeUser } from '@/src/types'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 interface UserMenuProps {
   currentUser: SafeUser

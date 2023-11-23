@@ -123,25 +123,10 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
       headerName: 'Date',
       width: 130
     },
-    {
-      field: 'action',
-      headerName: 'Actions',
-      width: 200,
-      renderCell: (params) => {
-        const id = params.row.id
-        return (
-        <div className='flex justify-between gap-4 w-full'>
-         <ActionButton
-          icon={MdRemoveRedEye}
-          onClick={() => { router.push(`/order/${id}`) }}/>
-        </div>
-        )
-      }
-    }
-  ]
+      ]
 
   return (
-    <div className='max-w-[1150px] m-auto text-xl'>
+    <div className='max-w-[950px] m-auto text-xl'>
       <div className='mb-4 mt-8'>
         <Heading title=' Orders'/>
       </div>
@@ -155,7 +140,6 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
           }
         }}
   pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  checkboxSelection // Jika true, maka memunculkan checkbox di bagian awal row
   disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
 />
       </div>

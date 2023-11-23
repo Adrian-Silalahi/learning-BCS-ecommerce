@@ -21,7 +21,7 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({ order }) => {
       </div>
       <div>Order ID: {order.id}</div>
       <div>
-        Total Amunt: {' '}
+        Total Amount: {' '}
         <span className='font-bold'>{formatRupiah(order.amount)}</span>
       </div>
       <div className='flex gap-2 items-center'>

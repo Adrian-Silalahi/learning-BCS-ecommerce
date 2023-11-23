@@ -44,7 +44,15 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ isLoading, register, er
       errors={errors}
       required
       />
-      <CustomCheckBox id='inStock' register={register} label='This product is in stock'/>
+      <Input
+      id='stock'
+      label='Stock'
+      disabled={isLoading}
+      register={register}
+      errors={errors}
+      type='number'
+      required
+      />
     </>
   )
 }

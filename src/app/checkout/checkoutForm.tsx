@@ -22,7 +22,11 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
   const elements = useElements()
 
   const deleteUserIntentFromDB = (): void => {
-    axios.delete('/api/delete-payment-intent')
+    axios.delete('/api/delete-payment-intent').then(() => {
+      handleSetPaymentSuccess(true)
+      handleClearCart()
+      toast.success('Checkout Success')
+    })
   }
 
   useEffect(() => {
@@ -48,11 +52,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
     })
       .then((result) => {
         if (!result.error) {
-          toast.success('Checkout Success')
-          handleClearCart()
-          handleSetPaymentSuccess(true)
           deleteUserIntentFromDB()
-
         }
         setIsLoading(false)
       })
@@ -65,7 +65,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
       <h2 className='font-semibold mb-2'>Address Information</h2>
       <AddressElement options={{
         mode: 'shipping',
-        allowedCountries: ['US', 'KE']
+        allowedCountries: ['ID']
       }}/>
       <h2 className='font-semibold mt-4 mb-2'>Payment Information</h2>
       <PaymentElement id='payment-element' options={{ layout: 'tabs' }}/>

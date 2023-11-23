@@ -28,7 +28,7 @@ const AddProductsView = (): React.ReactElement => {
       description: '',
       brand: '',
       category: '',
-      inStock: false,
+      stock: '',
       imageInfo: [],
       price: ''
     }

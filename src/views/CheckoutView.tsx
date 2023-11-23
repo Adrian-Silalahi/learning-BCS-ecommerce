@@ -21,11 +21,12 @@ const CheckoutView = (): React.ReactElement => {
   const [error, setError] = useState(false)
   const [clientSecret, setClientSecret] = useState('')
   const [paymentSuccess, setPaymentSuccess] = useState(false)
-
   const router = useRouter()
 
   useEffect(() => {
-    if (cartProducts) {
+    console.log('cartProducts', cartProducts);
+    
+    if (cartProducts?.length) {
       setLoading(true)
       setError(false)
 
@@ -38,6 +39,7 @@ const CheckoutView = (): React.ReactElement => {
           cartProducts
         })
       }).then((response) => {
+        console.log('response', response);
         setLoading(false)
         // Status 401 artinya adalah Unauthorized / user belum login
         if (response.status === 401) {
@@ -46,13 +48,15 @@ const CheckoutView = (): React.ReactElement => {
         }
         return response.json()
       }).then((response: any) => {
+        console.log('masuk');
         setClientSecret(response.paymentIntent.client_secret)
       }).catch(() => {
+        console.log('masuk');
         toast.error('Something went wrong')
       })
     }
   }, [cartProducts])
-
+  
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -66,26 +70,25 @@ const CheckoutView = (): React.ReactElement => {
   }, [])
   return (
     <div className='w-full'>
-         {(clientSecret && cartProducts) ?
+         {(clientSecret && cartProducts?.length) ?
              (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm clientSecret={clientSecret} handleSetPaymentSuccess={handleSetPaymentSuccess} />
         </Elements>
              )
-           :
-             (
-               null
-             )}
-      {loading && <div className='text-center'>Loading Checkout...</div>}
-      {error && (<div className='text-center'>Something went wrong...</div>)}
-      {paymentSuccess && (
-        <div className='flex items-center flex-col gap-4'>
-            <div className='text-teal-500 text-center'>Payment Success</div>
-            <div className='max-w-[220px] w-full'>
-                <CustomButton label='View Your Orders' onClick={() => { router.push('/orders') }}/>
+           :paymentSuccess ? (
+            <div className='flex items-center flex-col gap-4'>
+                <div className='text-teal-500 text-center'>Payment Success</div>
+                <div className='max-w-[220px] w-full'>
+                    <CustomButton label='View Your Orders' onClick={() => { router.push('/orders') }}/>
+                </div>
             </div>
-        </div>
-      )}
+          ):
+             (
+               <></>
+             )}
+      {/* {loading && <div className='text-center'>Loading Checkout...</div>} */}
+      {error && (<div className='text-center'>Something went wrong...</div>)}
     </div>
   )
 }

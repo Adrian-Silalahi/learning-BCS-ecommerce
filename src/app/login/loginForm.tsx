@@ -13,8 +13,10 @@ import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import toast from 'react-hot-toast'
 import Navigation from '@/src/components/Navigation/navigation'
+import { useCart } from '@/src/hooks/useCart'
 
 const LoginForm: React.FC = () => {
+  const {setIsLogin} = useCart()
   const [isLoading, setIsLoading] = useState(false)
   const {
     register, // validasi register dari library react-form-hook
@@ -44,7 +46,6 @@ const LoginForm: React.FC = () => {
       const signInPromise = await signInProcess(userCredentials)
       if (signInPromise?.ok === true) {
         router.push('/')
-        router.refresh()
         toast.success('Logged In')
       }
       if ((signInPromise?.error) != null) {
@@ -54,6 +55,8 @@ const LoginForm: React.FC = () => {
       toast.error('Something went wrong')
     } finally {
       setIsLoading(false)
+      setIsLogin(true)
+      router.refresh()
     }
   }
 

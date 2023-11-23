@@ -90,7 +90,7 @@ const CartView: React.FC<CartViewProps> = ({ currentUser }) => {
           <div className="text-sm flex flex-col gap-1 items-start">
             <div className="flex justify-between w-full text-base font-semibold">
               <span>Subtotal</span>
-              <span>{cartTotalPrice}</span>
+              <span>Rp {cartTotalPrice}</span>
             </div>
             <p className="text-slate-500">
               Taxes and shipping calculate at checkout

@@ -10,6 +10,7 @@ interface CartContextType {
   cartTotalQuantity: number
   cartTotalPrice: number
   cartProducts: ProductType[] | null
+  setIsLogin: (value: boolean) => void
   handleAddProductToCart: (product: ProductType) => void
   handleRemoveProductFromCart: (itemSelected: ProductType) => void
   handleIncreaseProductCartQty: (itemSelected: ProductType) => void
@@ -34,18 +35,20 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0)
   const [cartTotalPrice, setCartTotalPrice] = useState(0)
   const [cartProducts, setCartProducts] = useState<ProductType[] | []>([])
+  const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
     axios.get('/api/cart').then(response => {
-      const cartItems = response.data
-      setCartProducts(cartItems)
+      setCartProducts(response.data)
+    }).catch((error) => {
+      const errorMessage = error.response.data.error
+      console.log(errorMessage)
     })
-
-  }, [])
+  }, [isLogin])
 
   useEffect(() => {
     const getTotals = (): void => {
-      if (cartProducts !== null) {
+      if (cartProducts.length !== 0) {
         const { totalQtyOneProduct, totalPriceOneProduct } =
           cartProducts.reduce(
             (akumulator, elemen) => {
@@ -90,6 +93,9 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
             return product.id !== itemSelected.id
           })
           setCartProducts(filterProduct)
+          setcartTotalQuantity(
+            cartTotalQuantity - itemSelected.quantity
+          )
         }
         toast.success('Produk dihapus dari keranjang')
       }).catch((error) => {
@@ -100,33 +106,41 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
     [cartProducts]
   )
 
-  const handleIncreaseProductCartQty = useCallback(
-    (itemSelected: ProductType) => {
+  const handleClearCart = useCallback(() => {
+    axios.delete('/api/cart').then(()=> {
+      setCartProducts([])
+      setcartTotalQuantity(0)
+    })
+  }, [])
+
+  const handleIncreaseProductCartQty = useCallback((itemSelected: ProductType) => {
+    axios.get(`/api/product/${itemSelected.productId}`).then(response => {
+      const stock = response.data
       let updatedProduct
-
-      if (itemSelected.quantity >= 100) {
-        return toast.error('Oops, jumlah maksimum tercapai')
+      if (itemSelected.quantity >= stock) {
+        return toast(`Kamu hanya dapat menambahkan ${itemSelected.quantity} produk`)
       }
-
+  
       if (cartProducts !== null) {
         updatedProduct = [...cartProducts]
-
+  
         const existingIndex = cartProducts.findIndex(
           (product) => product.id === itemSelected.id
         )
-
+  
         if (existingIndex > -1) {
           updatedProduct[existingIndex].quantity = ++updatedProduct[
             existingIndex
           ].quantity
         }
-
+  
         setCartProducts(updatedProduct)
         localStorage.setItem(
           'cartItemsStorage',
           JSON.stringify(updatedProduct)
         )
       }
+    })
     },
     [cartProducts]
   )
@@ -161,17 +175,13 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
     [cartProducts]
   )
 
-  const handleClearCart = useCallback(() => {
-    axios.delete('/api/cart').then(()=> {
-      setCartProducts([])
-      setcartTotalQuantity(0)
-    })
-  }, [])
+ 
 
   const value = {
     cartTotalPrice,
     cartTotalQuantity,
     cartProducts,
+    setIsLogin,
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleIncreaseProductCartQty,

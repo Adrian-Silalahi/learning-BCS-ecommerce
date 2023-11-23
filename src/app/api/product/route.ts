@@ -11,7 +11,7 @@ export async function POST (request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const body = await request.json()
-  const { name, description, price, brand, category, inStock, imageInfo } = body
+  const { name, description, price, brand, category, stock, imageInfo } = body
 
   const product = await prisma.product.create({
     data: {
@@ -19,7 +19,7 @@ export async function POST (request: Request): Promise<NextResponse> {
       description,
       brand,
       category,
-      inStock,
+      stock: parseInt(stock),
       imageInfo,
       price: parseFloat(price)
     }
@@ -29,24 +29,24 @@ export async function POST (request: Request): Promise<NextResponse> {
   return NextResponse.json(product)
 }
 
-export async function PUT (request: Request): Promise<NextResponse> {
-  const currentUser = await getCurrentUser()
-  const isInvalidUser = (currentUser === null || currentUser === undefined || currentUser.role !== 'ADMIN')
+// export async function PUT (request: Request): Promise<NextResponse> {
+//   const currentUser = await getCurrentUser()
+//   const isInvalidUser = (currentUser === null || currentUser === undefined || currentUser.role !== 'ADMIN')
 
-  if (isInvalidUser) {
-    return NextResponse.json({ Error: 'User is not valid!' }, { status: 401 })
-  }
+//   if (isInvalidUser) {
+//     return NextResponse.json({ Error: 'User is not valid!' }, { status: 401 })
+//   }
 
-  const body = await request.json()
-  const { id, inStock } = body
+//   const body = await request.json()
+//   const { id, inStock } = body
 
-  const product = await prisma.product.update({
-    where: {
-      id
-    },
-    data: {
-      inStock
-    }
-  })
-  return NextResponse.json(product)
-}
+//   const product = await prisma.product.update({
+//     where: {
+//       id
+//     },
+//     data: {
+//       inStock
+//     }
+//   })
+//   return NextResponse.json(product)
+// }

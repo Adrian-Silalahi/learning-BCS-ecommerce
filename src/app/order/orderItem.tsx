@@ -2,12 +2,12 @@
 
 import { formatRupiah } from '@/src/utils/FormatRupiah'
 import TruncateText from '@/src/utils/TruncateText'
-import { type ProductType } from '@prisma/client'
+import { type CartProductType } from '@prisma/client'
 import Image from 'next/image'
 import React from 'react'
 
 interface OrderItemProps {
-  product: ProductType
+  product: CartProductType
 }
 
 const OrderItem: React.FC<OrderItemProps> = ({ product }) => {
@@ -25,7 +25,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ product }) => {
         </div>
         <div className='justify-self-center'>{formatRupiah(product?.price)}</div>
         <div className='justify-self-center'>{product?.quantity}</div>
-        <div className='justify-self-end font-semibold'>Rp {(product?.price * product?.quantity).toFixed(2)}</div>
+        <div className='justify-self-end font-semibold'>{formatRupiah(product?.price * product?.quantity)}</div>
     </div>
   )
 }

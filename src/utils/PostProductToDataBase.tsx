@@ -11,6 +11,7 @@ interface postProductToDataBaseProps {
 }
 
 export const postProductToDataBase = ({ currentProductData, setIsProductCreated, setIsLoading, router }: postProductToDataBaseProps): void => {
+  console.log('currentProductData', currentProductData)
   axios.post('/api/product', currentProductData).then(() => {
     toast.success('Product created')
     setIsProductCreated(true)

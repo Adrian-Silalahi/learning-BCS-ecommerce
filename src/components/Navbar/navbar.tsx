@@ -15,6 +15,7 @@ const pacifico = Pacifico({
 const Navbar = async (): Promise<React.ReactElement> => {
   const STORE_NAME = 'Bodat Chic'
   const currentUser = await getCurrentUser()
+  
   return (
     <div
       className="

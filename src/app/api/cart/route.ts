@@ -4,18 +4,16 @@ import { NextResponse } from 'next/server'
 
 export async function POST (request: Request) {
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
-  if (isInvalidUser) {
+  if (!currentUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   try{
   const body = await request.json()
-  const { id, name, description, category, brand, imageInfo, quantity, price} = body
-  let cartProductData ;
-
-  cartProductData = {
+  const { id, productId, name, description, category, brand, imageInfo, quantity, price} = body
+  let cartProductData = {
     id,
+    productId,
     userId: currentUser.id,
     name,
     description,
@@ -26,12 +24,12 @@ export async function POST (request: Request) {
     price
   }
 
-  const CartProduct = await prisma.cartProduct.create({
+  const cartProduct = await prisma.cartProduct.create({
     data: cartProductData
   })
 
   // Mengembalikan data user yang telah ditambahkan ke dalam database
-  return NextResponse.json(CartProduct)
+  return NextResponse.json(cartProduct)
   }
   catch(error: any){
     return NextResponse.json({ error }, { status: 500 })
@@ -40,42 +38,39 @@ export async function POST (request: Request) {
 
 export async function GET () {
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
-
-  if (isInvalidUser) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  try{
-    const CartProduct = await prisma.cartProduct.findMany({
-      where: {
-        userId: currentUser.id
-      }
-    })
+    if(!currentUser){
+      return NextResponse.json({ error: 'Please login first' }, { status: 401 })
+    }
+    try{
+      const cartProduct = await prisma.cartProduct.findMany({
+        where: {
+          userId: currentUser.id
+        }
+      })
+    
+      return NextResponse.json(cartProduct)
+    }
+    catch(error: any){
+      return NextResponse.json({ error }, { status: 500 })
+    }
   
-    return NextResponse.json(CartProduct)
-  }
-  catch(error: any){
-    return NextResponse.json({ error }, { status: 500 })
-  }
 }
 
 export async function DELETE () {
   const currentUser = await getCurrentUser()
-  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
 
-  if (isInvalidUser) {
+  if (!currentUser) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   try{
-    const CartProduct = await prisma.cartProduct.deleteMany({
+    const cartProduct = await prisma.cartProduct.deleteMany({
       where: {
         userId: currentUser.id
       }
     })
   
-    return NextResponse.json(CartProduct)
+    return NextResponse.json(cartProduct)
   }
   catch(error: any){
     return NextResponse.json({ error }, { status: 500 })

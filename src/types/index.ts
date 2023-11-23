@@ -17,7 +17,8 @@ export interface ProductFilterParams {
 }
 
 export interface ProductType {
-  id: string
+  id?: string
+  productId?: string
   userId?: string
   name: string
   description: string

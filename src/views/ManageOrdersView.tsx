@@ -189,7 +189,6 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
           }
         }}
   pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  checkboxSelection // Jika true, maka memunculkan checkbox di bagian awal row
   disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
 />
       </div>

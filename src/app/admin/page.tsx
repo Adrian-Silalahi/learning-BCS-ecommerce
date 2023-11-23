@@ -6,12 +6,20 @@ import SummaryViews from '@/src/views/SummaryViews'
 import React from 'react'
 import BarGraph from './barGraph'
 import getDailyOrderData from '@/src/actions/getDailyOrderData'
+import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import NullData from '@/src/components/NullData'
 
 const Admin: React.FC = async () => {
   const products = await getProducts({ category: null })
   const orders = await getOrders()
   const users = await getUsers()
   const dailyOrderData = await getDailyOrderData()
+  const currentUser = await getCurrentUser()
+  const isInvalidUser = (!currentUser || currentUser.role !== 'ADMIN')
+
+  if (isInvalidUser) {
+    return <NullData title={"Oops.. You don't have permission"}/>
+  }
 
   return (
     <div className='pt-1'>
