@@ -27,8 +27,6 @@ export async function POST (request: Request) {
   const cartProduct = await prisma.cartProduct.create({
     data: cartProductData
   })
-
-  // Mengembalikan data user yang telah ditambahkan ke dalam database
   return NextResponse.json(cartProduct)
   }
   catch(error: any){

@@ -14,7 +14,6 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
     <div>
       <Heading title="Product Review" />
       <div className="text-sm mt-2">
-        {/* Ketika ingin menggunakan data array / object, best practice nya pastikan terlebih dahulu data di dalam array/object tersebut benar-benar ada */}
         {product?.reviews.map((review: any) => {
           return (
               <div key={review.id}>

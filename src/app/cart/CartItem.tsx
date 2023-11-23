@@ -56,12 +56,9 @@ const CartItem: React.FC<CartItemProps> = ({ product }) => {
           currentQuantity={product?.quantity}
           handleDecreaseQuantity={() => {
             handleDecreaseProductCartQty(product)
-            console.log('product', product)
-            
           }}
           handleIncreaseQuantity={() => {
             handleIncreaseProductCartQty(product)
-            console.log('product', product)
           }}
         />
       </div>

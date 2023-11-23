@@ -16,8 +16,6 @@ type GraphData = {
 }
 
 const BarGraph: React.FC<BarGraphProps> = ({ dailyOrderData }) => {
-  // Jumlah data labels dan amounts harus sama
-  // artinya labels[i] = amounts[i] artinya, data labels[i] diambil dari data amounts[i]
   const labels: string[] = dailyOrderData.map((order) => order.day)
   const amounts: number[] = dailyOrderData.map((order) => order.totalAmount)
 

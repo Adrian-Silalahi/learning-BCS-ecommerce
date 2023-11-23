@@ -7,13 +7,12 @@ import { DataGrid, type GridColDef } from '@mui/x-data-grid'
 import { formatRupiah } from '../utils/FormatRupiah'
 import Heading from '../components/Heading'
 import Status from '../components/Status'
-import { MdCached, MdClose, MdDelete, MdDone, MdRemoveRedEye } from 'react-icons/md'
+import { MdClose, MdDelete, MdDone, MdRemoveRedEye } from 'react-icons/md'
 import ActionButton from '../components/Products/ActionButton'
 import { useRouter } from 'next/navigation'
 import { getStorage } from 'firebase/storage'
 import firebaseApp from '../libs/firebase'
 import { deleteProduct } from '../utils/DeleteProduct'
-import { changeStockStatusInDB } from '../utils/ChangeStockStatusInDB'
 
 interface ManageProductsViewProps {
   products: Product[]
@@ -51,7 +50,6 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
         const price = params.row.price
         return (
         <div className='font-bold text-slate-800'>{price}</div>
-        // ini akan menjadikan sekolom price (kecuali header kolom/ judul kolom) berdasarkan styling diatas
         )
       }
     },
@@ -79,7 +77,6 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
               bg='bg-rose-200'
               color='text-rose-700'/>
             ) }</div>
-        // Di cek dulu pertama stocknya true atau false cara cek nya dengan ambil dari params row/baris
         )
       }
     },
@@ -122,8 +119,8 @@ const ManageProductsView: React.FC<ManageProductsViewProps> = ({ products }) => 
             paginationModel: { page: 0, pageSize: 5 }
           }
         }}
-  pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
+  pageSizeOptions={[5, 10]} 
+  disableRowSelectionOnClick 
 />
       </div>
     </div>

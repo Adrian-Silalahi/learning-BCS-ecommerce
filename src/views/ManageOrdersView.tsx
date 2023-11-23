@@ -50,7 +50,6 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
         const amount = params.row.amount
         return (
         <div className='font-bold text-slate-800'>{amount}</div>
-        // ini akan menjadikan sekolom amount (kecuali header kolom/ judul kolom) berdasarkan styling diatas
         )
       }
     },
@@ -79,7 +78,6 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
               )
             : (<></>)
           }</div>
-        // Di cek dulu pertama stocknya true atau false cara cek nya dengan ambil dari params row/baris
         )
       }
     },
@@ -116,7 +114,6 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
                 )
               : (<></>)
           }</div>
-        // Di cek dulu pertama stocknya true atau false cara cek nya dengan ambil dari params row/baris
         )
       }
     },
@@ -188,8 +185,8 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
             paginationModel: { page: 0, pageSize: 5 }
           }
         }}
-  pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
+  pageSizeOptions={[5, 10]} 
+  disableRowSelectionOnClick 
 />
       </div>
     </div>

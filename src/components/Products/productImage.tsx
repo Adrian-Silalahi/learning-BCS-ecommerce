@@ -14,9 +14,9 @@ interface ProductImageProps {
 }
 
 const ProductImage: React.FC<ProductImageProps> = ({
-  selectedProduct, // selectedProduct : product yang colornya sudah di select oleh user, namun punya default dengan color idx pertama
-  product, // product : data product yang dipilih user untuk dilihat detailnya. Data ini dikirimkan dari komponen productDetail
-  handleColorSelect // handleColorSelect : function yang akan dipanggil ketika user memilih color
+  selectedProduct, 
+  product, 
+  handleColorSelect 
 
 }) => {
   return (
@@ -38,8 +38,6 @@ const ProductImage: React.FC<ProductImageProps> = ({
                 src={imageInfo.image}
                 alt={imageInfo.color}
                 fill
-                // contain : memastikan seluruh gambar dapat dilihat sehingga memungkinkan terjadinya perubahan pada aspect rasio
-                // cover : mempertahankan aspect rasio namun juga menjaga agar gambar tidak blur sehingga memungkinkan terjadinya zoom pada gambar
                 className="object-contain"
               />
             </div>

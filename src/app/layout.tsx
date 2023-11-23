@@ -34,7 +34,6 @@ export default function RootLayout ({
     return (
     <html lang="en">
       <body className={`text-slate-700 ${poppins.className}`}>
-        {/* settting toaster  agar dapat dipakai ke seluruh halaman sebagai sweet alert */}
         <Toaster
           toastOptions={{
             style: {
@@ -43,11 +42,8 @@ export default function RootLayout ({
             }
           }}
         />
-        {/* wrap dengan context sebagai penyedia data global */}
-        {/* cart context digunakan sebagai penyedia data cart atau keranjang */}
         <CartContextProvider>
           <div className="flex flex-col min-h-screen ">
-            {/* Artinya jika pathnya login atau register, maka navbar dan footer tidak akan muncul */}
             {isNotAuthPage && <Navbar />}
             <main className="flex-grow bg-white font">{children}</main>
             {isNotAuthPage && <Footer />}

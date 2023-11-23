@@ -25,7 +25,6 @@ interface TypeProps {
 }
 
 const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
-  // Product disini adalah data dari product yang halaman detailnya ditampilkan
   const router = useRouter()
   const { handleAddProductToCart, cartProducts } = useCart()
   const [isProductInCart, setIsProductInCart] = useState(false)
@@ -42,11 +41,8 @@ const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
     price: product.price
   })
 
-  // Cek apakah ada product di dalam cart
   useEffect(() => {
     if (cartProducts !== null && cartProducts.length) {
-          //onDetailProducts artinya product-product yang dilihat detailnya dan ada di dalam cart
-        //Kenapa jamak? karena product idnya sama ada beberapa. Cth: product id:1 ada 2 yaitu merah dan biru.
         const onDetailProducts = cartProducts.filter((product) => {
               return product.productId === selectedProduct.productId
           })
@@ -55,7 +51,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
           const existingIndex = onDetailProducts.findIndex(
             (product) => product.imageInfo.color === selectedProduct.imageInfo.color
           )
-            if (existingIndex > -1) { // jika index-nya adalah index ke-0 keatas ... maka ada selected product di dalam cart
+            if (existingIndex > -1) { 
           setIsProductInCart(true)
           }else{
           setIsProductInCart(false)
@@ -66,7 +62,6 @@ const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
         setIsProductInCart(false)}
   }, [cartProducts, selectedProduct])
   
-  // handleColorSelect adalah function yang akan dipanggil ketika user memilih color
   const handleColorSelect = useCallback(
     (selectedImageInfo: ImageInfoType) => {
       setSelectedProduct((prev) => {
@@ -78,7 +73,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
 
   const handleIncreaseQuantity = useCallback(() => {
     if (selectedProduct.quantity === product.stock) {
-      return // Keluar dari fungsi tanpa mengembalikan nilai
+      return 
     }
     setSelectedProduct((prev) => {
       return { ...prev, quantity: ++selectedProduct.quantity }
@@ -87,7 +82,7 @@ const ProductDetailView: React.FC<TypeProps> = ({ product, user }) => {
 
   const handleDecreaseQuantity = useCallback(() => {
     if (selectedProduct.quantity === 1) {
-      return // Keluar dari fungsi tanpa mengembalikan nilai
+      return 
     }
     setSelectedProduct((prev) => {
       return { ...prev, quantity: --selectedProduct.quantity }

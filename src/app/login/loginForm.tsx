@@ -16,23 +16,21 @@ import Navigation from '@/src/components/Navigation/navigation'
 import { useCart } from '@/src/hooks/useCart'
 
 const LoginForm: React.FC = () => {
+  const router = useRouter()
   const {setIsLogin} = useCart()
   const [isLoading, setIsLoading] = useState(false)
   const {
-    register, // validasi register dari library react-form-hook
-    handleSubmit, // validasi handleSubmit dari library react-form-hook
-    formState: { errors }// errors akan menangani jika form tidak valid seperti pengisian credential yang tidak lengkap dan lain-lain
+    register, 
+    handleSubmit, 
+    formState: { errors }
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
       password: ''
-    }// Lihat di Materi cara penggunaan dari defaultValues react-hook-form
+    }
   })
 
-  const router = useRouter()
-
   const onSubmit: SubmitHandler<FieldValues> = async (userCredentials) => {
-    // Penjelasan dari properti/fungsi-fungsi yang berasal dari react-hook-form ada di file registerForm.tsx
     try {
       setIsLoading(true)
       const signInProcess = async (credentials: FieldValues): Promise<SignInResponse | undefined> => {

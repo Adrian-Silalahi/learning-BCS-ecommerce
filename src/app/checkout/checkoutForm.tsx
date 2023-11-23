@@ -57,6 +57,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
         setIsLoading(false)
       })
   }
+
   return (
     <form onSubmit={handleSubmit} id='payment-form'>
       <div className='mb-6'>
@@ -75,8 +76,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
       <CustomButton label={isLoading ? 'Processing' : 'Pay now'}
       disabled={isLoading}
       onClick={() => {}}/>
-      {/* onClick kosong namun kalau ditekan tetap menjalankan fungsi handleSubmit dikarenakan,
-        ketika Anda meletakkan elemen button dalam elemen <form> yang memiliki atribut onSubmit={handleSubmit}, maka secara otomatis elemen CustomButton akan bertindak sebagai tombol "Submit" default untuk formulir. */}
     </form>
   )
 }

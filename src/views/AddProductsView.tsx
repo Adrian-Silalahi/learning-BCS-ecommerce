@@ -33,7 +33,6 @@ const AddProductsView = (): React.ReactElement => {
       price: ''
     }
   })
-  // Lihat di Materi cara penggunaan dari defaultValues react-hook-form
 
   useEffect(() => {
     setFieldValue('imageInfo', imageInfoTemporary)
@@ -68,10 +67,8 @@ const AddProductsView = (): React.ReactElement => {
     postProductToDataBase({ currentProductData, setIsProductCreated, setIsLoading, router })
   }
 
-  // syntax dibawah adalah cara mengambil value category dari fieldvalues  (value terbaru/terkini)
   const category = watch('category')
 
-  // fungsi dibawah adalah cara set nilai fieldvalues
   const setFieldValue = (field: string, selectedLabel: any): void => {
     setValue(field, selectedLabel, {
       shouldValidate: true,

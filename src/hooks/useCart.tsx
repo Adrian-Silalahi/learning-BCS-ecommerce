@@ -5,7 +5,6 @@ import { type ProductType } from '@/src/types'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
-// Mendefinisikan type dari value²/data yang disediakan cart context
 interface CartContextType {
   cartTotalQuantity: number
   cartTotalPrice: number
@@ -18,18 +17,12 @@ interface CartContextType {
   handleClearCart: () => void
 }
 
-// Syntax untuk membuat sebuah context
-// Dimana context-nya kita beri nama CartContext
 export const CartContext = createContext<CartContextType | null>(null)
 
 interface ProviderProps {
-  // [propName: string]: any // Memungkinkan kita menerima props apa saja yang dikirimkan melalui <CartContext.Provider {"props apa saja"} > yang kita letakkan di layout.tsx (lihat di eps23 - 4)
   children: React.ReactNode
 }
-
-// Membuat sebuah provider / penyedia pada sebuah context
 export const CartContextProvider: React.FC<ProviderProps> = ({
-  // props,
   children
 }) => {
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0)
@@ -190,24 +183,14 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
   }
 
   return (
-    // Kita masukkan value/data yang sudah kita sediakan, kedalam provider.
-    // Value ini nanti dapat kita gunakan pada komponen² yang berada di dalam lingkup cart context provider atau children dari cart context provider
-    // Dimana Value ini adalah sebagai data/fungsi yang ingin kita gunakan
     <CartContext.Provider value={value}>
-      {/* <CartContext.Provider value={value} {...props}> */}
       {children}
     </CartContext.Provider>
-    // Namun, kita juga bisa memisahkan provider kedalam file lain agar codingan terlihat rapi
-    // Lihat di ../providers/cartProviders.tsx
   )
 }
-
-// Export cartContext yang sudah kita buat, agar datanya bisa kita gunakan pada-
-// komponen² yang berada di dalam lingkup cart context provider
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext)
 
-  // Namun, jika komponen yang kita gunakan masih belum dibungkus dengan provider, maka akan memunculkan error seperti dibawah
   if (context === null) {
     throw new Error('useCart must be used within a CartContextProvider')
   }

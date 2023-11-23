@@ -1,6 +1,5 @@
 import React from 'react'
 import Input from '../Inputs/input'
-import CustomCheckBox from '../Inputs/customCheckBox'
 import TextArea from '../Inputs/textArea'
 
 interface AddProductFormProps {

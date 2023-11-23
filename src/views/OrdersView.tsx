@@ -8,7 +8,6 @@ import { formatRupiah } from '../utils/FormatRupiah'
 import Heading from '../components/Heading'
 import Status from '../components/Status'
 import { MdAccessTimeFilled, MdDeliveryDining, MdDone, MdRemoveRedEye } from 'react-icons/md'
-import ActionButton from '../components/Products/ActionButton'
 import { useRouter } from 'next/navigation'
 import moment from 'moment'
 
@@ -48,7 +47,6 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
         const amount = params.row.amount
         return (
         <div className='font-bold text-slate-800'>{amount}</div>
-        // ini akan menjadikan sekolom amount (kecuali header kolom/ judul kolom) berdasarkan styling diatas
         )
       }
     },
@@ -77,7 +75,6 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
               )
             : (<></>)
           }</div>
-        // Di cek dulu pertama stocknya true atau false cara cek nya dengan ambil dari params row/baris
         )
       }
     },
@@ -114,7 +111,6 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
                 )
               : (<></>)
           }</div>
-        // Di cek dulu pertama stocknya true atau false cara cek nya dengan ambil dari params row/baris
         )
       }
     },
@@ -139,8 +135,8 @@ const OrdersView: React.FC<OrdersViewProps> = ({ orders }) => {
             paginationModel: { page: 0, pageSize: 5 }
           }
         }}
-  pageSizeOptions={[5, 10]} // Mengatur ukuran tabel
-  disableRowSelectionOnClick // Tidak mengaktifkan checkbox saat salah satu tombol di bagian row di tekan
+  pageSizeOptions={[5, 10]} 
+  disableRowSelectionOnClick 
 />
       </div>
     </div>

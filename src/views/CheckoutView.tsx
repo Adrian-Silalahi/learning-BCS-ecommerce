@@ -41,7 +41,6 @@ const CheckoutView = (): React.ReactElement => {
       }).then((response) => {
         console.log('response', response);
         setLoading(false)
-        // Status 401 artinya adalah Unauthorized / user belum login
         if (response.status === 401) {
           router.push('/login')
           toast.error('Please login')
@@ -87,7 +86,6 @@ const CheckoutView = (): React.ReactElement => {
              (
                <></>
              )}
-      {/* {loading && <div className='text-center'>Loading Checkout...</div>} */}
       {error && (<div className='text-center'>Something went wrong...</div>)}
     </div>
   )

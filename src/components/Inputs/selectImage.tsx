@@ -27,11 +27,9 @@ const SelectImage: React.FC<SelectImageProps> = ({
   })
 
   return (
-    // ...getRootProps() => memungkinkan elemen tersebut untuk merespons interaksi drag-and-drop, sehingga pengguna dapat menyeret berkas ke elemen tersebut untuk memilih gambar.
     <div {...getRootProps()}
     className='border-2 border-slate-400 p-2 border-dashed cursor-pointer text-sm font-normal text-slate-400 flex imageInfos-center justify-center'>
         <input {...getInputProps()} />
-        {/* //Nyerah aku ga tau masih apa gunanya ...getInputProps() walaupun dah ku cari di gpt */}
         {isDragActive
           ? (
             <p>Drop the image here...</p>
