@@ -1,3 +1,5 @@
+export const revalidate = 0
+
 import React from 'react'
 import HomeViews from '../views/HomeView'
 import { ProductFilterParams } from '../types'

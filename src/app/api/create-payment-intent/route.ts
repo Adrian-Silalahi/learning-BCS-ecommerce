@@ -73,7 +73,7 @@ export async function POST (request: Request): Promise<NextResponse> {
 
     return NextResponse.json({ paymentIntent: updatedIntent })
     }
-  }
+  }else{
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: stripeTotal,
@@ -97,4 +97,6 @@ export async function POST (request: Request): Promise<NextResponse> {
   })
 
   return NextResponse.json({ paymentIntent })
+}
+  return NextResponse.json({ error: 'Error' }, { status: 404 })
 }

@@ -1,4 +1,5 @@
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import prisma from '@/src/libs/prismadb'
 import { NextResponse } from 'next/server'
 
 export async function DELETE (request: Request, { params }: { params: { id: string } }): Promise<NextResponse> {
@@ -8,9 +9,7 @@ export async function DELETE (request: Request, { params }: { params: { id: stri
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   try{
-    console.log('paramsId', params.id)
-    console.log('currentUser', currentUser)
-    const cartProduct = await prisma?.cartProduct.delete({
+    const cartProduct = await prisma.cartProduct.delete({
       where: {
         id: params.id,
         userId: currentUser.id,
