@@ -20,9 +20,9 @@ export default async function getProducts (params: ProductFilterParams): Promise
       },
       include: {
         reviews: {
-          include: {
-            user: true
-          },
+          // include: {
+          //   user: true
+          // },
           orderBy: {
             createdDate: 'desc'
           }
