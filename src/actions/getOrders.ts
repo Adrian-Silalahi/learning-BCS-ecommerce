@@ -3,9 +3,9 @@ import prisma from '../libs/prismadb'
 export default async function getOrders (): Promise<any> {
   try {
     const orders = await prisma.order.findMany({
-      include: {
-        user: true
-      },
+      // include: {
+      //   user: true
+      // },
       orderBy: {
         createDate: 'desc'
       }
