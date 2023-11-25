@@ -7,7 +7,7 @@ interface getOrderByIdProps {
 export default async function getOrderById (params: getOrderByIdProps): Promise<any> {
   try {
     const { orderId } = params
-    const order = await prisma?.order.findUnique({
+    const order = await prisma.order.findUnique({
       where: {
         id: orderId
       }

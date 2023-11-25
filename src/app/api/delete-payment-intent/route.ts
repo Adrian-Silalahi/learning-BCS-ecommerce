@@ -6,7 +6,7 @@ export async function DELETE (request: Request): Promise<NextResponse> {
   const currentUser = await getCurrentUser()
   if (currentUser) {
     const userId = currentUser.id
-    await prisma?.user.update({
+    await prisma.user.update({
       where: {
         id: userId
       },

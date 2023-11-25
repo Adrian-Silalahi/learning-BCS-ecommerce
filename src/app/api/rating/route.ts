@@ -1,6 +1,8 @@
 import { getCurrentUser } from '@/src/actions/getCurrentUser'
+import prisma from '@/src/libs/prismadb'
 import { type CartProductType, type Order, type Review } from '@prisma/client'
 import { NextResponse } from 'next/server'
+
 
 export async function POST (request: Request) {
   const currentUser = await getCurrentUser()
@@ -20,7 +22,7 @@ export async function POST (request: Request) {
     return NextResponse.error()
   }
 
-  const review = await prisma?.review.create({
+  const review = await prisma.review.create({
     data: {
       comment,
       rating,

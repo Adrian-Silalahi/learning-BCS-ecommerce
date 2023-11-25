@@ -1,10 +1,12 @@
 import moment from 'moment'
+import prisma from '../libs/prismadb'
+
 
 export default async function getDailyOrderData () {
   try {
     const startDate = moment().subtract(6, 'days').startOf('day')
     const endDate = moment().endOf('day')
-    const completeOrdersInfo = await prisma?.order.groupBy({
+    const completeOrdersInfo = await prisma.order.groupBy({
       by: ['createDate'],
       where: {
         createDate: {

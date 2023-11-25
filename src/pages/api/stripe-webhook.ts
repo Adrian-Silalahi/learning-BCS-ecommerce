@@ -39,7 +39,7 @@ export default async function handler (
     case 'charge.succeeded':
       const charge: any = event.data.object as Stripe.Charge
       if (typeof charge.payment_intent === 'string') {
-        await prisma?.order.update({
+        await prisma.order.update({
           where: {
             paymentIntentId: charge.payment_intent
           },

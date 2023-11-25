@@ -1,7 +1,9 @@
+import prisma from '@/src/libs/prismadb'
 import { NextResponse } from 'next/server'
 
+
 export async function DELETE (request: Request, { params }: { params: { id: string } }): Promise<NextResponse> {
-  const product = await prisma?.product.delete({
+  const product = await prisma.product.delete({
     where: {
       id: params.id
     }
@@ -11,7 +13,7 @@ export async function DELETE (request: Request, { params }: { params: { id: stri
 }
 
 export async function GET (request: Request, { params }: { params: { id: string } }): Promise<NextResponse> {
-  const product = await prisma?.product.findFirst({
+  const product = await prisma.product.findFirst({
     where: {
       id: params.id
     }
