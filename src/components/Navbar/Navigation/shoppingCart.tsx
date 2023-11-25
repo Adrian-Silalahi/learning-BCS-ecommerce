@@ -13,7 +13,7 @@ interface ShoppingCartProps {
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ currentUser }) => {
   const router = useRouter()
   const { cartTotalQuantity } = useCart()
-
+  const validCartTotalQuantity = cartTotalQuantity < 0 ? 0 : cartTotalQuantity
   return (
     <div
       className="relative cursor-pointer"
@@ -23,7 +23,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ currentUser }) => {
         <CiShoppingCart />
       </div>
       <span className="absolute top-[-10px] right-[-10px] bg-slate-700 text-white h-6 w-6 rounded-full flex items-center justify-center text-sm">
-        {currentUser ? cartTotalQuantity : 0}
+        {currentUser ? validCartTotalQuantity : 0}
       </span>
     </div>
   )
