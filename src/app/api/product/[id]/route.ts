@@ -1,8 +1,10 @@
-import prisma from '@/src/libs/prismadb'
-import { NextResponse } from 'next/server'
+import prisma from '@/src/libs/prismadb';
+import { NextResponse } from 'next/server';
 
 
 export async function DELETE (request: Request, { params }: { params: { id: string } }): Promise<NextResponse> {
+  console.log('params', params.id);
+  
   const product = await prisma.product.delete({
     where: {
       id: params.id

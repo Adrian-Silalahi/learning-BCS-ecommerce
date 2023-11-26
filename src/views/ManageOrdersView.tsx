@@ -30,7 +30,7 @@ const ManageOrdersView: React.FC<ManageOrdersViewProps> = ({ orders }) => {
     rows = orders.map((order) => {
       return {
         id: order.id,
-        customer: order.user.name,
+        customer: order.user?.name,
         amount: formatRupiah(order.amount),
         paymentStatus: order.status,
         date: moment(order.createDate).fromNow(),

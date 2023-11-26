@@ -25,6 +25,11 @@ export const imageInfos = [
     image: null
   },
   {
+    color: 'Brick red',
+    colorCode: '#fc6124',
+    image: null
+  },
+  {
     color: 'Navy',
     colorCode: '#000080',
     image: null
@@ -35,8 +40,13 @@ export const imageInfos = [
     image: null
   },
   {
-    color: 'Orangeo',
-    colorCode: '#FFA500',
+    color: 'Cream',
+    colorCode: '#FFFDD0',
+    image: null
+  },
+  {
+    color: 'Dark green',
+    colorCode: '#235347',
     image: null
   }
 ]

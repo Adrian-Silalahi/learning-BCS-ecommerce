@@ -20,7 +20,7 @@ export async function POST (request: Request): Promise<NextResponse> {
       category,
       stock: parseInt(stock),
       imageInfo,
-      price: parseFloat(price)
+      price: parseFloat(price),
     }
   })
 
