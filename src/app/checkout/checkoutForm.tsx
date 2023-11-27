@@ -22,6 +22,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
 
   const deleteUserIntentFromDB = (): void => {
     axios.delete('/api/delete-payment-intent').then(() => {
+      setIsCheckoutLoading(false)
       handleSetPaymentSuccess(true)
       handleClearCart()
       toast.success('Checkout Success')
@@ -53,7 +54,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
         if (!result.error) {
           deleteUserIntentFromDB()
         }
-        setIsCheckoutLoading(false)
       })
   }
 

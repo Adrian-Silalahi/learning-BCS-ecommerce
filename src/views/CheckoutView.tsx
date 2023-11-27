@@ -23,12 +23,8 @@ const CheckoutView = (): React.ReactElement => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('cartProducts', cartProducts);
-    
     if (cartProducts?.length) {
-      setIsCheckoutLoading(true)
       setError(false)
-
       fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
@@ -38,7 +34,6 @@ const CheckoutView = (): React.ReactElement => {
           cartProducts
         })
       }).then((response) => {
-        console.log('response', response);
         setIsCheckoutLoading(false)
         if (response.status === 401) {
           router.push('/login')
@@ -46,10 +41,8 @@ const CheckoutView = (): React.ReactElement => {
         }
         return response.json()
       }).then((response: any) => {
-        console.log('masuk');
         setClientSecret(response.paymentIntent.client_secret)
       }).catch(() => {
-        console.log('masuk');
         toast.error('Something went wrong')
       })
     }
