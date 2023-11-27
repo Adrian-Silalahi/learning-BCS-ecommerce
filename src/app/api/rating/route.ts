@@ -27,7 +27,7 @@ export async function POST (request: Request) {
       comment,
       rating,
       productId: product.id,
-      userId
+      userId,
     }
   })
 
