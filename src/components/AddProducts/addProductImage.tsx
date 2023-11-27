@@ -14,10 +14,10 @@ const AddProductImage: React.FC<AddProductImageProps> = ({ addImageInfoToState, 
     <div className='w-full flex flex-col flex-wrap gap-4'>
           <div>
             <div className='font-bold'>
-              Select the available product colors and upload their images
+            Pilih warna produk yang tersedia dan unggah gambarnya
             </div>
             <div className='text-sm'>
-              You must upload an image for each of the color selected otherwise your color selection will be ignored.
+            Anda harus mengunggah gambar untuk setiap warna yang anda pilih jika tidak, pemilihan warna Anda akan diabaikan.
             </div>
           </div>
           <div className='grid grid-cols-2 gap-3'>

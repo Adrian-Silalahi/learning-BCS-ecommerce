@@ -21,7 +21,7 @@ const HomeViews = async({searchParams}: HomeViewsProps): Promise<React.ReactElem
           <div className='absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white'>
             <div className='text-center'>
             <h1 className='font-bold text-3xl'>#ThriftFinds</h1>
-            <p className='text-sm'>Summer Sale & up to 50% off!</p>
+            <p className='text-sm'>Obral Musim Panas & diskon hingga 50%!</p>
             </div>
           </div>
         </div>
