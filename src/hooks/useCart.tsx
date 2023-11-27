@@ -9,6 +9,8 @@ interface CartContextType {
   cartTotalQuantity: number
   cartTotalPrice: number
   cartProducts: ProductType[] | null
+  isCheckoutLoading: boolean
+  setIsCheckoutLoading: (value: boolean) => void
   setIsLogin: (value: boolean) => void
   handleAddProductToCart: (product: ProductType) => void
   handleRemoveProductFromCart: (itemSelected: ProductType) => void
@@ -29,6 +31,8 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
   const [cartTotalPrice, setCartTotalPrice] = useState(0)
   const [cartProducts, setCartProducts] = useState<ProductType[] | []>([])
   const [isLogin, setIsLogin] = useState(false)
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false)
+
 
   useEffect(() => {
     axios.get('/api/cart').then(response => {
@@ -174,12 +178,15 @@ export const CartContextProvider: React.FC<ProviderProps> = ({
     cartTotalPrice,
     cartTotalQuantity,
     cartProducts,
+    isCheckoutLoading,
+    setIsCheckoutLoading,
     setIsLogin,
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleIncreaseProductCartQty,
     handleDecreaseProductCartQty,
     handleClearCart
+
   }
 
   return (

@@ -16,8 +16,7 @@ import CheckoutForm from '../app/checkout/checkoutForm'
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
 
 const CheckoutView = (): React.ReactElement => {
-  const { cartProducts } = useCart()
-  const [loading, setLoading] = useState(false)
+  const { cartProducts, isCheckoutLoading, setIsCheckoutLoading } = useCart()
   const [error, setError] = useState(false)
   const [clientSecret, setClientSecret] = useState('')
   const [paymentSuccess, setPaymentSuccess] = useState(false)
@@ -27,7 +26,7 @@ const CheckoutView = (): React.ReactElement => {
     console.log('cartProducts', cartProducts);
     
     if (cartProducts?.length) {
-      setLoading(true)
+      setIsCheckoutLoading(true)
       setError(false)
 
       fetch('/api/create-payment-intent', {
@@ -40,7 +39,7 @@ const CheckoutView = (): React.ReactElement => {
         })
       }).then((response) => {
         console.log('response', response);
-        setLoading(false)
+        setIsCheckoutLoading(false)
         if (response.status === 401) {
           router.push('/login')
           toast.error('Please login')
@@ -69,23 +68,24 @@ const CheckoutView = (): React.ReactElement => {
   }, [])
   return (
     <div className='w-full'>
-         {(clientSecret && cartProducts?.length) ?
-             (
+         {(clientSecret && cartProducts?.length) ?(
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm clientSecret={clientSecret} handleSetPaymentSuccess={handleSetPaymentSuccess} />
         </Elements>
-             )
-           :paymentSuccess ? (
+        ):isCheckoutLoading? (
+            <div>
+                <div className='text-center'>Loading...</div>
+            </div>
+        ):paymentSuccess ? (
             <div className='flex items-center flex-col gap-4'>
                 <div className='text-teal-500 text-center'>Payment Success</div>
                 <div className='max-w-[220px] w-full'>
                     <CustomButton label='View Your Orders' onClick={() => { router.push('/orders') }}/>
                 </div>
             </div>
-          ):
-             (
-               <></>
-             )}
+        ):(
+            <></>
+        )}
       {error && (<div className='text-center'>Something went wrong...</div>)}
     </div>
   )

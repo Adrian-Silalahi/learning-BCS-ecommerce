@@ -15,8 +15,7 @@ interface CheckoutFormProps {
 }
 
 const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaymentSuccess }) => {
-  const { cartTotalPrice, handleClearCart } = useCart()
-  const [isLoading, setIsLoading] = useState(false)
+  const { cartTotalPrice, handleClearCart, isCheckoutLoading,  setIsCheckoutLoading } = useCart()
   const formattedPrice = formatRupiah(cartTotalPrice)
   const stripe = useStripe()
   const elements = useElements()
@@ -45,7 +44,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
     if (!stripe || !elements) {
       return
     }
-    setIsLoading(true)
+    setIsCheckoutLoading(true)
     stripe.confirmPayment({
       elements,
       redirect: 'if_required',
@@ -54,7 +53,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
         if (!result.error) {
           deleteUserIntentFromDB()
         }
-        setIsLoading(false)
+        setIsCheckoutLoading(false)
       })
   }
 
@@ -73,8 +72,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ clientSecret, handleSetPaym
       <div className='py-4 text-center text-slate-700 text-xl font-bold'>
         Total: {formattedPrice}
       </div>
-      <CustomButton label={isLoading ? 'Processing' : 'Pay now'}
-      disabled={isLoading}
+      <CustomButton label={isCheckoutLoading ? 'Processing' : 'Pay now'}
+      disabled={isCheckoutLoading}
       onClick={() => {}}/>
     </form>
   )
